@@ -1,4 +1,4 @@
-# Spring boot
+# Postgres
 
 
 ## Project setup
