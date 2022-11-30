@@ -1,15 +1,12 @@
 @ECHO OFF
 
-start cmd.exe @cmd /k "cd /d .\database"
+:: make sure the ports are free
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8080" ^| find "LISTENING"') do taskkill /f /pid %%a
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8282" ^| find "LISTENING"') do taskkill /f /pid %%a
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":5173" ^| find "LISTENING"') do taskkill /f /pid %%a
 
-# Start the backend
-start cmd /k "cd backend && mvn spring-boot:run"
+:: start powershell with all the commands
+wt -p PowerShell -d ./database cmd /k "docker start postgres-group2 && docker ps"; split-pane -p PowerShell -d ./backend -H cmd /k mvn spring-boot:run; move-focus up; split-pane -p PowerShell -V -d ./frontend cmd /k pnpm run dev ; move-focus down; split-pane -V -p PowerShell -d ./proxy cmd /k node index.js
 
-# Start the frontend
-start cmd /k "cd frontend && npm run dev"
 
-# Start the database
-start cmd /k "cd database && docker start postgres-group2"
 
-# Start the reverse proxy
-start cmd /k "cd proxy && node index.js"
