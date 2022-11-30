@@ -13,8 +13,6 @@ sh .\build_script.sh
 echo "################## Postgres built ##################"
 echo "####################################################"
 
-
-
 :: Build the frontend
 cd ..\frontend
 call npm install -g pnpm
