@@ -17,16 +17,18 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductSize size;
     private String color;
+    private int price;
 
     public Product() {
     }
 
-    public Product(String artNum, ProductType type, String model, ProductSize size, String color) {
+    public Product(String artNum, ProductType type, String model, ProductSize size, String color, int price) {
         this.artNum = artNum;
         this.type = type;
         this.model = model;
         this.size = size;
         this.color = color;
+        this.price = price;
     }
 
     public long getId() {
@@ -75,5 +77,13 @@ public class Product {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
