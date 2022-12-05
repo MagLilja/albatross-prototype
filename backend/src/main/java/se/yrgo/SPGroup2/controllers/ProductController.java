@@ -13,13 +13,7 @@ import java.util.List;
 @RequestMapping(value = "/products")
 public class ProductController {
 
-
-    @GetMapping(value = "/{artNr}")
-    public Product getProductsByArtNr(@PathVariable String artNr) {
-        return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
-    }
-
-    @GetMapping
+    @GetMapping("")
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<Product>();
         productList.add(new Product("2", ProductType.JACKETS, "Gislaved", ProductSize.XS, "Blue", 1000));
@@ -28,8 +22,14 @@ public class ProductController {
         return productList;
     }
 
+
+    @GetMapping(value = "/{artNr}")
+    public Product getProductsByArtNr(@PathVariable String artNr) {
+        return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
+    }
+
+
     @GetMapping(value = "/type")
-    @ResponseBody
     public Product getProductsByType(@RequestParam String type) {
         return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
     }
