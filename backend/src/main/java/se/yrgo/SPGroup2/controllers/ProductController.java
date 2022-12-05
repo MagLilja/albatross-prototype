@@ -15,7 +15,7 @@ public class ProductController {
 
 
     @GetMapping(value = "/{artNr}")
-    public Product GetProductsByArtNr(@PathVariable String artNr) {
+    public Product getProductsByArtNr(@PathVariable String artNr) {
         return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
     }
 
@@ -30,7 +30,7 @@ public class ProductController {
 
     @GetMapping(value = "/type")
     @ResponseBody
-    public Product GetProductsByType(@RequestParam String type) {
+    public Product getProductsByType(@RequestParam String type) {
         return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
     }
 
