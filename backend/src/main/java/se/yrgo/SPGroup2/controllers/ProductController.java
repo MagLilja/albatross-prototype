@@ -1,9 +1,11 @@
 package se.yrgo.SPGroup2.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
+import se.yrgo.SPGroup2.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.List;
 @RequestMapping(value = "/products")
 public class ProductController {
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @GetMapping("")
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<Product>();
@@ -20,6 +25,11 @@ public class ProductController {
         productList.add(new Product("3", ProductType.PANTS, "Hjo", ProductSize.S, "Blue", 1000));
         productList.add(new Product("4", ProductType.VESTS, "Paris", ProductSize.M, "Blue", 1000));
         return productList;
+    }
+
+    @PostMapping("")
+    public void newProduct(@RequestBody Product product){
+        productRepository.save(product);
     }
 
 
