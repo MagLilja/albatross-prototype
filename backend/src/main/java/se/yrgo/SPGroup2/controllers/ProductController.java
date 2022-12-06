@@ -27,11 +27,6 @@ public class ProductController {
         return productList;
     }
 
-    @PostMapping("")
-    public void newProduct(@RequestBody Product product){
-        productRepository.save(product);
-    }
-
 
     @GetMapping(value = "/{artNr}")
     public Product getProductsByArtNr(@PathVariable String artNr) {
