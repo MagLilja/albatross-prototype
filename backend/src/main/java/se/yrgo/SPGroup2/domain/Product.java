@@ -12,6 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(unique=true)
     private String artNum;
     @Enumerated(EnumType.STRING)
     private ProductType type;
@@ -100,5 +101,18 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id, artNum, type, model, size, color, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", artNum='" + artNum + '\'' +
+                ", type=" + type +
+                ", model='" + model + '\'' +
+                ", size=" + size +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
