@@ -9,7 +9,7 @@ public class Stock {
     @Id
     private int id;
     @OneToOne
-    private Product artNum;
+    private Product product;
     private int amountInStock;
 
 
@@ -17,16 +17,16 @@ public class Stock {
 
     }
     public Stock(Product artNum, int amountInStock) {
-        this.artNum = artNum;
+        this.product = artNum;
         this.amountInStock = amountInStock;
     }
 
-    public String getArtNum() {
-        return artNum.getArtNum();
+    public Product getProduct() {
+        return product;
     }
 
-    public void setArtNum(Product artNum) {
-        this.artNum = artNum;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getAmountInStock() {
