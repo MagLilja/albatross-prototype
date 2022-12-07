@@ -16,7 +16,7 @@ const fetchData = async () => {
 
 <template>
 
-    <div class="card mt-[200px]">
+    <div class="card">
         <button type="button" @click="fetchData()">Visa alla produkter</button>
     </div>
     <ul>
