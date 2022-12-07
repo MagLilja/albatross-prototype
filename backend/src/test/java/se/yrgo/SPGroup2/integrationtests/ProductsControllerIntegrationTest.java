@@ -15,6 +15,7 @@ import se.yrgo.SPGroup2.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,10 +37,11 @@ public class ProductsControllerIntegrationTest {
 
     @Test
     public void getAllProductsTest() throws Exception {
-        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
-        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
 
         List<Product> initalProducts = productController.getAllProducts();
+
+        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
 
         productRepository.saveAll(List.of(product, product2));
 
@@ -65,16 +67,16 @@ public class ProductsControllerIntegrationTest {
         Product product2 = new Product("1234566", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
         Product product3 = new Product("1234567", ProductType.JACKETS, "Nike", ProductSize.S, "Black", 1000);
         Product product4 = new Product("1234568", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        List<Product> jackets = productController.getAllProducts().stream()
+                .filter(p -> p.getType().equals(ProductType.JACKETS))
+                .toList();
         //when
 
         productRepository.saveAll(List.of(product, product2, product3, product4));
 
         //then
-        assertThat(productController.getProductsByType(ProductType.VESTS.toString())).size().isEqualTo(1);
-        productRepository.save(product);
-        productRepository.delete(product);
-        //then
-        assertThat(productRepository.findByArtNum("1234567")).isNull();
+        assertThat(productController.getProductsByType(ProductType.JACKETS.toString())).size().isEqualTo(jackets.size() + 1);
+
 
     }
 

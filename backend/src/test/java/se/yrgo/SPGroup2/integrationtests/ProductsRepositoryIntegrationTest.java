@@ -1,3 +1,4 @@
+package se.yrgo.SPGroup2.integrationtests;
 
 import org.junit.jupiter.api.Test;
 
