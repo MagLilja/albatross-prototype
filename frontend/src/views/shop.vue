@@ -1,14 +1,15 @@
+<script setup lang="ts">
+import Testar from "../components/Testar.vue"
+</script>
+
 <template>
+  <testar></testar>
     <div >
 SHOP VIEW
     </div>
 </template>
 
-<script>
-export default {
-    name: "test"
-};
-</script>
+
 
 <style scoped>
 
