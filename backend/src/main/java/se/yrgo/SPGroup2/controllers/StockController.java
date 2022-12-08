@@ -15,10 +15,12 @@ public class StockController {
 
     @Autowired
     private StockRepository stockRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/{artNr}")
     public int getStockForArtNr(@PathVariable String artNr){
-        return stockRepository.findByArtNr(artNr).getAmountInStock();
+        return stockRepository.findByProduct(productRepository.findByArtNum(artNr)).getAmountInStock();
     }
 
 }

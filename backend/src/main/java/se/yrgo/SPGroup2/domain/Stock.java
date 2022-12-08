@@ -16,8 +16,8 @@ public class Stock {
     public Stock() {
 
     }
-    public Stock(Product artNum, int amountInStock) {
-        this.product = artNum;
+    public Stock(Product product, int amountInStock) {
+        this.product = product;
         this.amountInStock = amountInStock;
     }
 
