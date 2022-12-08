@@ -7,10 +7,6 @@ const count = ref(0)
 
 const data: Ref<Product[]> = ref()
 
-const fetchData = async () => {
-    const promise = await fetch('/api/products');
-    data.value = await promise.json()
-}
 
 </script>
 

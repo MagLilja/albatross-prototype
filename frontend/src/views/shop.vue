@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Testar from "../components/Testar.vue"
-import router from "../router";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 interface ClothingType {
     type: string;
@@ -34,7 +36,7 @@ const clothing_types: ClothingType[] = [
     }
 ]
 function goToProduct(clothing_type : string) {
-    router.push({ path: 'product', query: { plan: clothing_type }})
+    router.push({ path: 'categories', query: { type: clothing_type }})
 }
 
 
@@ -44,9 +46,9 @@ function goToProduct(clothing_type : string) {
 <template>
     <testar></testar>
     <div class="flex flex-wrap gap-8 text-center text-white  justify-center">
-        <div :style="{'background-image': type.image}" v-for="type in clothing_types" class="bg-center bg-cover w-[200px] h-[80px] flex justify-center items-center relative">
+        <div  @click="goToProduct(type.type)" :style="{'background-image': type.image}" v-for="type in clothing_types" class="cursor-pointer  bg-center bg-cover w-[200px] h-[80px] flex justify-center items-center relative hover:border-2 hover:border-black">
 <!--            <div class="bg-white/30 w-full h-full absolute"></div>-->
-            <a @click="goToProduct(type.type)">{{ type.type }}</a>
+            {{ type.type }}
         </div>
     </div>
 
