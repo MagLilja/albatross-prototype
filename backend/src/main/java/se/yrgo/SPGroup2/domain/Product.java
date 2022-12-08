@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
 
+import java.util.Objects;
+
 @Entity
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(unique=true)
     private String artNum;
     @Enumerated(EnumType.STRING)
     private ProductType type;
@@ -85,5 +88,31 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id && price == product.price && Objects.equals(artNum, product.artNum) && type == product.type && Objects.equals(model, product.model) && size == product.size && Objects.equals(color, product.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, artNum, type, model, size, color, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", artNum='" + artNum + '\'' +
+                ", type=" + type +
+                ", model='" + model + '\'' +
+                ", size=" + size +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

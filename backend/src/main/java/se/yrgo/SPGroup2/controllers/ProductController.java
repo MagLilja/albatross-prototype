@@ -20,23 +20,19 @@ public class ProductController {
 
     @GetMapping("")
     public List<Product> getAllProducts() {
-        List<Product> productList = new ArrayList<Product>();
-        productList.add(new Product("2", ProductType.JACKETS, "Gislaved", ProductSize.XS, "Blue", 1000));
-        productList.add(new Product("3", ProductType.PANTS, "Hjo", ProductSize.S, "Blue", 1000));
-        productList.add(new Product("4", ProductType.VESTS, "Paris", ProductSize.M, "Blue", 1000));
-        return productList;
+        return productRepository.findAll();
     }
 
 
     @GetMapping(value = "/{artNr}")
     public Product getProductsByArtNr(@PathVariable String artNr) {
-        return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
+        return productRepository.findByArtNum(artNr);
     }
 
 
     @GetMapping(value = "/type")
-    public Product getProductsByType(@RequestParam String type) {
-        return new Product("1", ProductType.JACKETS, "Arboga", ProductSize.M, "Prison pink", 1000);
+    public List<Product> getProductsByType(@RequestParam String type) {
+        return productRepository.findByType(ProductType.valueOf(type));
     }
 
 }
