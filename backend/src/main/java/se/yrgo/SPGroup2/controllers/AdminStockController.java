@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.yrgo.SPGroup2.domain.Stock;
+import se.yrgo.SPGroup2.repositories.StockRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,6 @@ public class AdminStockController {
 
     }
 
-    @GetMapping("/{artNr}")
-    public int getStockForArtNr(@PathVariable int artNr){
-        return stockRepository.findByArtNr(artNr).getAmountInStock();
-    }
+
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
+import se.yrgo.SPGroup2.repositories.StockRepository;
 
 @RestController
 @RequestMapping(value = "/stock")
@@ -16,7 +17,7 @@ public class StockController {
     private StockRepository stockRepository;
 
     @GetMapping("/{artNr}")
-    public int getStockForArtNr(@PathVariable int artNr){
+    public int getStockForArtNr(@PathVariable String artNr){
         return stockRepository.findByArtNr(artNr).getAmountInStock();
     }
 
