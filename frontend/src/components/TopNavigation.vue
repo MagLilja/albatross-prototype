@@ -11,9 +11,9 @@
         </div>
         <div>
             <ul class="flex gap-4 items-center">
-                <li><img src="../assets/facebook.svg" class="pt-1 invert"></li>
-                <li><img src="../assets/insta.svg" class="pt-1 invert"></li>
-                <li><img src="../assets/basket.svg" class="-ml-1 invert"></li>
+                <li><img src="../assets/facebook.svg" class="pt-1 invert" alt="facebook"></li>
+                <li><img src="../assets/insta.svg" class="pt-1 invert" alt="instagram"></li>
+                <li><img src="../assets/basket.svg" class="-ml-1 invert" alt="basket"></li>
             </ul>
         </div>
     </div>
