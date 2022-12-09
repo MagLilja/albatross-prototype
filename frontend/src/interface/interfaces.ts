@@ -7,3 +7,12 @@ export interface Product {
     color: string,
     price: number,
 }
+
+export enum ProductType {
+    WINDSTOPPERS,
+    RAINCOATS,
+    JACKETS,
+    PANTS,
+    VESTS,
+    ACCESSORIES
+}

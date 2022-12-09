@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Testar from "../components/Testar.vue"
 import {useRouter} from "vue-router";
+import ProductsComponent from "../components/ProductsComponent.vue";
+
 
 const router = useRouter()
 
@@ -44,13 +45,14 @@ function goToProduct(clothing_type : string) {
 </script>
 
 <template>
-    <testar></testar>
     <div class="flex flex-wrap gap-8 text-center text-white  justify-center">
         <div  @click="goToProduct(type.type)" :style="{'background-image': type.image}" v-for="type in clothing_types" class="cursor-pointer  bg-center bg-cover w-[200px] h-[80px] flex justify-center items-center relative hover:border-2 hover:border-black">
-<!--            <div class="bg-white/30 w-full h-full absolute"></div>-->
             {{ type.type }}
         </div>
     </div>
+    <div class="text-4xl m-14">Products</div>
+    <ProductsComponent></ProductsComponent>
+
 
 </template>
 

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "test"
+    category: "test"
 };
 </script>
 
