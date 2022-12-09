@@ -25,7 +25,7 @@ const products: Ref<Product[]> = ref([])
 
 <template>
     <div>
-        <div class="text-4xl m-14 ">Administration {{type}}</div>
+        <div class="text-4xl m-14 ">{{type}}</div>
         <router-view></router-view>
     </div>
 </template>

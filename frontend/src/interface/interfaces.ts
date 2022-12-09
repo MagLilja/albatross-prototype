@@ -1,18 +1,28 @@
+
 export interface Product {
-    "id": number,
+    "id"?: number,
     "artNum": string,
-    "type": string,
+    "type": ProductType | undefined,
     model: string,
-    size: string,
+    size: ProductSize | undefined,
     color: string,
     price: number,
 }
 
 export enum ProductType {
-    WINDSTOPPERS,
-    RAINCOATS,
-    JACKETS,
-    PANTS,
-    VESTS,
-    ACCESSORIES
+    WINDSTOPPERS = 'windstoppers',
+    JACKETS = 'jackets',
+    PANTS = 'pants',
+    VESTS = 'vests',
+    RAINCOATS = 'raincoats',
+    ACCESSORIES = 'accessories',
+}
+
+
+export enum ProductSize {
+    XS = "XS",
+    S = "S",
+    M = "M",
+    L = "L",
+    XL = "XL",
 }

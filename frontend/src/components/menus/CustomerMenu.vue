@@ -9,7 +9,7 @@ const props = defineProps<{
 
 
 <template>
-    <ul class="nav-links flex gap-2 text-white" :class="{'text-black':props.atTop}">
+    <ul class="nav-links flex gap-2 text-white " :class="{'text-black':props.atTop}">
         <li>
             <router-link to="/">Home</router-link>
         </li>
