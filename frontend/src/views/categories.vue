@@ -21,7 +21,6 @@ function urlForProductImage(product: Product): string {
     return "src/assets/products/smogen.png"
 
     // TODO get image from api
-    // return "url('src/assets/" + product. + "')";
 
 }
 
