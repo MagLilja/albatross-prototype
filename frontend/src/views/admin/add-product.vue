@@ -1,39 +1,51 @@
 <script setup lang="ts">
-import {useRoute} from "vue-router";
-import ApiService from "../services/apiService";
-import {onMounted, Ref, ref} from "vue";
-import {Product, ProductType} from "../interface/interfaces";
-import ProductsComponent from "../components/ProductsComponent.vue";
-
-const route = useRoute()
-
-//get the type from the query parameter
-const type = route.query.type as unknown as ProductType
-
-//fetch the products of the type from the api
-// onMounted(async () => {
-//     products.value = await ApiService.getDataFrom("products/type?type=" + type.toString().toUpperCase()) as Product[];
-// })
-
-// create a ref to hold the list of products of the type
-const products: Ref<Product[]> = ref([])
-
-
 
 
 </script>
 
 <template>
-    <div>
-        <div class="text-xs mb-4">Shop / {{ type }}</div>
-        <div class="text-4xl mb-14">{{ type }}</div>
-<ProductsComponent :category="type"></ProductsComponent>
+    <div class="px-16">
+        <form >
+            <div class="grid grid-cols-[max-content_200px] items-center text-right">
+                <div class="x">artNum: </div>
+                <input type="text">
+
+                <div class="x">type: </div>
+                <input type="text">
+
+                <div class="x">model: </div>
+                <input type="text">
+
+                <div class="x">size: </div>
+                <input type="text">
+
+
+                <div class="x">color: </div>
+                <input type="text">
+
+                <div class="x">price: </div>
+                <input type="text">
+
+                <div class="x">amount in stock: </div>
+                <input type="text">
+
+            </div>
+
+
+        </form>
 
     </div>
 </template>
 
 
 <style scoped>
+
+input {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
 
 .nav-links > li:hover {
     text-decoration: underline;

@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import home from "../views/home.vue";
+import admin from "../views/admin.vue";
 
 const router = createRouter({
     history: createWebHistory('/'),
@@ -22,10 +23,10 @@ const router = createRouter({
         {
             path: '/admin',
             name: 'admin',
-            component: () => import('../views/admin.vue'),
+            component: admin,
             children: [
                 {
-                    path: '/add-product',
+                    path: 'add-product',
                     name: 'add-product',
                     component: () => import('../views/admin/add-product.vue'),
                 }
