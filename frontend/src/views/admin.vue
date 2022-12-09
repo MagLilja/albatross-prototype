@@ -8,7 +8,7 @@ import ProductsComponent from "../components/ProductsComponent.vue";
 const route = useRoute()
 
 //get the type from the query parameter
-const type = route.query.type as unknown as ProductType
+const type = route.path as unknown as ProductType
 
 //fetch the products of the type from the api
 // onMounted(async () => {
@@ -25,10 +25,8 @@ const products: Ref<Product[]> = ref([])
 
 <template>
     <div>
-        <div class="text-xs mb-4">Shop / {{ type }}</div>
-        <div class="text-4xl mb-14">{{ type }}</div>
-<ProductsComponent :category="type"></ProductsComponent>
-
+        <div class="text-4xl m-14 ">Administration {{type}}</div>
+        <router-view></router-view>
     </div>
 </template>
 

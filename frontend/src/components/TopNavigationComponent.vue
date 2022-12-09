@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {defineProps, ref, watchEffect} from 'vue'
+import CustomerMenu from "./menus/CustomerMenu.vue";
+import AdminMenu from "./menus/AdminMenu.vue";
 
 const props = defineProps(['atTop'])
 
@@ -26,21 +28,12 @@ watchEffect(() => {
                                      src="../assets/logo.webp" alt=""></router-link>
         </div>
         <div v-if="!isAdmin">
-            <ul class="nav-links flex gap-2 text-white" :class="{'text-black':props.atTop}">
-                <li>
-                    <router-link to="/">Home{{isAdmin}}</router-link>
-                </li>
-                <li>
-                    <router-link to="/shop">Shop</router-link>
-                </li>
-                <li>
-                    <router-link to="/about">About</router-link>
-                </li>
-                <li>
-                    <router-link to="/impressions">Impressions</router-link>
-                </li>
-            </ul>
+            <customerMenu :at-top="atTop"/>
         </div>
+        <div v-else>
+            <adminMenu :at-top="atTop"/>
+        </div>
+
         <div>
             <ul class="flex gap-4 items-center ">
                 <li><a href="https://www.facebook.com/albatross.sportswear">
