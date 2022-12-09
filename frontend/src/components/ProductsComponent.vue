@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {onMounted, Ref, ref} from "vue";
+import {computed, onMounted, Ref, ref, toRefs} from "vue";
 import ApiService from "../services/apiService";
 import {Product} from "../interface/interfaces";
+import { useScroll } from '@vueuse/core'
+
 const props = defineProps({
     // Props are defined here
     // They are passed in from the parent component
@@ -29,6 +31,8 @@ onMounted(async () => {
     }
 })
 
+
+
 function urlForProductImage(product: Product): string {
     return "src/assets/products/smogen.png"
 
@@ -40,7 +44,7 @@ function urlForProductImage(product: Product): string {
 
 <template>
 
-    <div class="flex flex-wrap gap-8 mx-14">
+    <div class="flex flex-wrap gap-8 mx-14 -z-20">
         <div v-for="product in products"
              class="cursor-pointer bg-center bg-cover w-[200px] h-[80px] flex flex-col justify-start gap-1  relative hover:bg-amber-100">
             <img src="" alt="" :srcset="urlForProductImage(product)">
