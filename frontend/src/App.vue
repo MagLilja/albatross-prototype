@@ -34,7 +34,7 @@ const displayY = computed({
 
 <template>
     <div  class="x">
-        <div ref="el" class="w-full h-screen m-auto overflow-scroll">
+        <div ref="el" class="w-screen h-screen m-auto overflow-scroll scroll-smooth">
             <nav>
                 <top-navigation :atTop="top"/>
             </nav>
