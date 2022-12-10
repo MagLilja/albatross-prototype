@@ -1,31 +1,63 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import TopNavigation from "./components/TopNavigationComponent.vue";
+import {computed, ref, toRefs} from 'vue'
+import {useScroll} from '@vueuse/core'
+import BooleanDisplay from "./components/BooleanDisplay.vue";
+import scroll from "./components/scroll.vue";
+
+const el = ref<HTMLElement | null>(null)
+const smooth = ref(false)
+const behavior = computed(() => smooth.value ? 'smooth' : 'auto')
+const {x, y, isScrolling, arrivedState, directions} = useScroll(el, {behavior})
+const {left, right, top, bottom} = toRefs(arrivedState)
+const {left: toLeft, right: toRight, top: toTop, bottom: toBottom} = toRefs(directions)
+// Format the numbers with toFixed() to make them
+// nicer to displayœ
+const displayX = computed({
+    get() {
+        return x.value.toFixed(1)
+    },
+    set(val) {
+        x.value = parseFloat(val)
+    },
+})
+const displayY = computed({
+    get() {
+        return y.value.toFixed(1)
+    },
+    set(val) {
+        y.value = parseFloat(val)
+    },
+})
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+    <div  class="x">
+        <div ref="el" class="w-screen h-screen m-auto overflow-scroll scroll-smooth">
+            <nav>
+                <top-navigation :atTop="top"/>
+            </nav>
+            <div class="mb-0 mt-24 content-center justify-center mx-24">
+                <router-view class=""/>
+            </div>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<!--<style scoped>-->
+<!--.logo {-->
+<!--    height: 6em;-->
+<!--    padding: 1.5em;-->
+<!--    will-change: filter;-->
+<!--}-->
+
+<!--.logo:hover {-->
+<!--    filter: drop-shadow(0 0 2em #646cffaa);-->
+<!--}-->
+
+<!--.logo.vue:hover {-->
+<!--    filter: drop-shadow(0 0 2em #42b883aa);-->
+<!--}-->
+<!--</style>-->
