@@ -6,7 +6,7 @@ function getHeaders() {
 }
 
 const ApiService = {
-    getDataFrom: async function (endPoint: string, headers?: Headers): Promise<unknown> {
+    getDataFrom: async function (endPoint: string, headers?: Headers): Promise<Response> {
 
         const myHeaders = getHeaders();
 
@@ -23,7 +23,7 @@ const ApiService = {
             console.log(endPoint + ' fetched');
             return  promise
         } else {
-            throw new Error('Something went wrong when fetching data')
+            throw new Error('Something went wrong when fetching data from ' + '/api/' + endPoint)
         }
     },
     postDataTo: async function (endPoint: string, data: unknown, headers?: Headers): Promise<Response> {
