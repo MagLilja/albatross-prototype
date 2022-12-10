@@ -29,7 +29,12 @@ const router = createRouter({
                     path: 'add-product',
                     name: 'add-product',
                     component: () => import('../views/admin/add-product.vue'),
-                }
+                },
+                {
+                    path: 'show-products',
+                    name: 'show-products',
+                    component: () => import('../views/admin/show-products.vue'),
+                },
                 ]
 
         }

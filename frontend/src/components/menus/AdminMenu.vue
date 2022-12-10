@@ -14,7 +14,7 @@ const props = defineProps<{
             <router-link to="add-product">Add product</router-link>
         </li>
         <li>
-            <router-link to="/shop">Show products</router-link>
+            <router-link to="show-products">Show products</router-link>
         </li>
         <li>
             <router-link to="/about">Orders</router-link>

@@ -19,12 +19,7 @@ const newProduct: Ref<Product> = ref({
 const stock = ref(0)
 const status = ref("")
 
-async function registerProduct() {
-    console.log(newProduct.value)
-    let promise = await ApiService.postDataTo("admin/products/" + stock.value, newProduct.value);
-    status.value = promise.status == 200 ? "Product added" : "Error"
-    console.log(stock);
-    console.log(promise);
+function resetProductInput() {
     newProduct.value = {
         artNum: "",
         color: "",
@@ -33,6 +28,13 @@ async function registerProduct() {
         size: undefined,
         type: undefined,
     }
+    stock.value = 0
+}
+
+async function registerProduct() {
+    let promise = await ApiService.postDataTo("admin/products/" + stock.value, newProduct.value);
+    status.value = promise.status == 200 ? "Product added" : "Error"
+    resetProductInput();
 }
 
 
@@ -69,7 +71,7 @@ async function registerProduct() {
 
                 <div class="col-span-2  mt-6">
                     <div class="x">
-                        <button @click.prevent="registerProduct()">Registera produkt</button>
+                        <button @click.prevent="registerProduct()">Registrera produkt</button>
                     </div>
                     <div class="mt-4">
                         {{ status }}
@@ -77,8 +79,6 @@ async function registerProduct() {
                 </div>
 
             </div>
-
-
         </form>
 
     </div>
