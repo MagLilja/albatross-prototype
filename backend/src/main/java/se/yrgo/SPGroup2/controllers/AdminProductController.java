@@ -1,12 +1,13 @@
 package se.yrgo.SPGroup2.controllers;
 
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.yrgo.SPGroup2.domain.Product;
-import se.yrgo.SPGroup2.enums.ProductSize;
-import se.yrgo.SPGroup2.enums.ProductType;
+import se.yrgo.SPGroup2.domain.Stock;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
+import se.yrgo.SPGroup2.repositories.StockRepository;
 
 
 @RestController
@@ -16,9 +17,21 @@ public class AdminProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private StockRepository stockRepository;
+
     @PostMapping("")
-    public Product createProducts(@RequestBody Product product) {
+    public Product createProduct(@RequestBody Product product) {
         productRepository.save(product);
+        return product;
+    }
+
+    @Transactional
+    @PostMapping("/{stock}")
+    public Product createProductWithStock(@RequestBody Product product, @PathVariable int stock) {
+        productRepository.save(product);
+        Stock newStock = new Stock(product, stock);
+        stockRepository.save(newStock);
         return product;
     }
 
