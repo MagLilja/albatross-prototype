@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import ApiService from "../services/apiService";
-import {onMounted, Ref, ref} from "vue";
+import {onMounted, Ref, ref, watchEffect} from "vue";
 import {Product, ProductType} from "../interface/interfaces";
 import ProductsComponent from "../components/ProductsComponent.vue";
 
 const route = useRoute()
 
 //get the type from the query parameter
-const type = route.path as unknown as ProductType
+const type: Ref<ProductType> = ref(route.query.type as ProductType)
+watchEffect(() => {
+    type.value = route.path as unknown as ProductType
+})
 
-//fetch the products of the type from the api
-// onMounted(async () => {
-//     products.value = await ApiService.getDataFrom("products/type?type=" + type.toString().toUpperCase()) as Product[];
-// })
 
-// create a ref to hold the list of products of the type
-const products: Ref<Product[]> = ref([])
+
 
 
 
