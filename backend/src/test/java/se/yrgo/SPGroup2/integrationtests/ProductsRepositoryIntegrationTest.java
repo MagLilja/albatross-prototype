@@ -32,7 +32,7 @@ public class ProductsRepositoryIntegrationTest {
     @Test
     void createProduct() {
         //given
-        Product product = new Product("123456", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product = new Product("123456", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
         //when
         productRepository.save(product);
 
@@ -43,7 +43,7 @@ public class ProductsRepositoryIntegrationTest {
     @Test
     void deleteProduct() {
         //given
-        Product product = new Product("123456", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product = new Product("123456", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
         //when
         productRepository.save(product);
         productRepository.delete(product);

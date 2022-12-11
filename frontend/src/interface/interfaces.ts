@@ -7,6 +7,7 @@ export interface Product {
     size: ProductSize | undefined,
     color: string,
     price: number,
+    stock?: number,
 }
 
 export enum ProductType {

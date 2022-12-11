@@ -22,16 +22,28 @@ public class Product {
     private String color;
     private int price;
 
+    @OneToOne
+    private Stock stock;
+
     public Product() {
     }
 
-    public Product(String artNum, ProductType type, String model, ProductSize size, String color, int price) {
+    public Product(String artNum, ProductType type, String model, ProductSize size, String color, int price, Stock stock) {
         this.artNum = artNum;
         this.type = type;
         this.model = model;
         this.size = size;
         this.color = color;
         this.price = price;
+        this.stock = stock;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
     public long getId() {

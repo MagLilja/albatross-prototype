@@ -29,9 +29,9 @@ public class AdminProductController {
     @Transactional
     @PostMapping("/{stock}")
     public Product createProductWithStock(@RequestBody Product product, @PathVariable int stock) {
-        productRepository.save(product);
-        Stock newStock = new Stock(product, stock);
-        stockRepository.save(newStock);
+//        productRepository.save(product);
+//        Stock newStock = new Stock(product, stock);
+//        stockRepository.save(newStock);
         return product;
     }
 

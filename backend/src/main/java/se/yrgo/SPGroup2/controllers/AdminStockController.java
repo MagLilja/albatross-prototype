@@ -8,8 +8,10 @@ import se.yrgo.SPGroup2.domain.Stock;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.StockRepository;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "admin/stock")
@@ -28,17 +30,40 @@ public class AdminStockController {
     }
 
     @PostMapping("/{artNum}/{amountInStock}")
+    @Transient
     public void createStock(@PathVariable String artNum, @PathVariable int amountInStock) {
-        
-        stockRepository.save(new Stock(productRepository.findByArtNum(artNum), amountInStock));
+        Product byArtNum = productRepository.findByArtNum(artNum);
+        byArtNum.setStock(new Stock(amountInStock));
+        productRepository.save(byArtNum);
     }
 
     @PutMapping("/{artNum}/{amountInStock}")
     public void updateStock(@PathVariable String artNum, @PathVariable int amountInStock) {
         Product productStockToUpdate = productRepository.findByArtNum(artNum);
-        Stock stockToUpdate = stockRepository.findByProduct(productStockToUpdate);
-        stockToUpdate.setAmountInStock(amountInStock);
-        stockRepository.save(stockToUpdate);
+        Optional<Stock> stock = Optional.ofNullable(productStockToUpdate.getStock());
+
+//        System.out.println(stock.get());
+        if (stock.isPresent()) {
+            stock.get().setAmountInStock(amountInStock);
+            stockRepository.save(stock.get());
+        } else {
+            Stock stock1 = new Stock(amountInStock);
+            stockRepository.save(stock1);
+            productStockToUpdate.setStock(stock1);
+            productRepository.save(productStockToUpdate);
+        }
+//        stock.ifPresentOrElse(ss->{
+//            ss.setAmountInStock(amountInStock);
+//            productStockToUpdate.setStock(ss);
+//            productRepository.save(productStockToUpdate);
+//        }, () -> {
+//            Stock newStock = new Stock();
+//            newStock.setAmountInStock(amountInStock);
+//            productStockToUpdate.setStock(newStock);
+//            System.out.println("hej");
+//            productRepository.save(productStockToUpdate);
+//        });
+
     }
 
 

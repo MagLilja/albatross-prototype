@@ -5,17 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import se.yrgo.SPGroup2.controllers.ProductController;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,8 +36,8 @@ public class ProductsControllerIntegrationTest {
 
         List<Product> initalProducts = productController.getAllProducts();
 
-        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
-        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
 
         productRepository.saveAll(List.of(product, product2));
 
@@ -51,7 +47,7 @@ public class ProductsControllerIntegrationTest {
     @Test
     void getProductsByArtNr() {
         //given
-        Product product = new Product("1234563", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product = new Product("1234563", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
         //when
         productRepository.save(product);
 
@@ -63,10 +59,10 @@ public class ProductsControllerIntegrationTest {
     @Test
     void getProductsByType() {
         //given
-        Product product = new Product("1234565", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
-        Product product2 = new Product("1234566", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
-        Product product3 = new Product("1234567", ProductType.JACKETS, "Nike", ProductSize.S, "Black", 1000);
-        Product product4 = new Product("1234568", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product = new Product("1234565", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product2 = new Product("1234566", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product3 = new Product("1234567", ProductType.JACKETS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product4 = new Product("1234568", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
         List<Product> jackets = productController.getAllProducts().stream()
                 .filter(p -> p.getType().equals(ProductType.JACKETS))
                 .toList();
