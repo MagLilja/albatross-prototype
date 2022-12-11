@@ -1,5 +1,6 @@
 package se.yrgo.SPGroup2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Stock {
     @OneToOne
     @MapsId
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
 

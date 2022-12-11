@@ -1,6 +1,8 @@
 package se.yrgo.SPGroup2.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductSize;
@@ -19,8 +21,8 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @GetMapping("")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
     }
 
 

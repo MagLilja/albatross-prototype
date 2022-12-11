@@ -10,6 +10,7 @@ import se.yrgo.SPGroup2.repositories.NoStockRecordException;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.StockRepository;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,19 +46,14 @@ public class AdminStockController {
         if (stock.isPresent()) {
             stock.get().setAmountInStock(amountInStock);
             stockRepository.save(stock.get());
+            return ResponseEntity.ok().build();
         } else {
             Stock stock1 = new Stock(amountInStock, productStockToUpdate);
             stockRepository.save(stock1);
             productStockToUpdate.setStock(stock1);
             productRepository.save(productStockToUpdate);
+            return ResponseEntity.created(URI.create("admin/stock")).build();
         }
-        Optional<Stock> stockToUpdate =  stockRepository.findByProduct(productStockToUpdate);
-        if (stockToUpdate.isPresent()) {
-            stockToUpdate.get().setAmountInStock(amountInStock);
-            stockRepository.save(stockToUpdate.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 
 
