@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
 
+import java.util.Optional;
+
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
 
-    Stock findByProduct(Product product);
+    Optional<Stock> findByProduct(Product product);
 }

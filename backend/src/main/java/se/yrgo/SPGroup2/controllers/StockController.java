@@ -2,12 +2,19 @@ package se.yrgo.SPGroup2.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import se.yrgo.SPGroup2.domain.Product;
+import se.yrgo.SPGroup2.domain.Stock;
+import se.yrgo.SPGroup2.repositories.NoStockRecordException;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.StockRepository;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/stock")
@@ -19,8 +26,13 @@ public class StockController {
     private ProductRepository productRepository;
 
     @GetMapping("/{artNr}")
-    public int getStockForArtNr(@PathVariable String artNr){
-        return stockRepository.findByProduct(productRepository.findByArtNum(artNr)).getAmountInStock();
+    public ResponseEntity<Integer> getStockForArtNr(@PathVariable String artNr) {
+        Product byArtNum = productRepository.findByArtNum(artNr);
+
+        return stockRepository.findByProduct(byArtNum)
+                .map(stock -> new ResponseEntity<>(stock.getAmountInStock(), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(0, HttpStatus.NOT_FOUND));
+
     }
 
 }
