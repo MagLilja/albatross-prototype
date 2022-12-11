@@ -1,5 +1,7 @@
 package se.yrgo.SPGroup2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
@@ -22,6 +24,10 @@ public class Product {
     private String color;
     private int price;
 
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Stock stock;
+
     public Product() {
     }
 
@@ -32,7 +38,17 @@ public class Product {
         this.size = size;
         this.color = color;
         this.price = price;
+//        this.stock = new Stock(0, this);
     }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
 
     public long getId() {
         return id;
@@ -113,6 +129,7 @@ public class Product {
                 ", size=" + size +
                 ", color='" + color + '\'' +
                 ", price=" + price +
+                ", stock=" + stock.getAmountInStock() +
                 '}';
     }
 }

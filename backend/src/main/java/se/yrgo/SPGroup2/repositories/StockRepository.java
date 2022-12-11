@@ -7,5 +7,5 @@ import se.yrgo.SPGroup2.domain.Stock;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
 
-    Stock findByProduct(Product product);
+//    Stock findByProduct(Product product);
 }

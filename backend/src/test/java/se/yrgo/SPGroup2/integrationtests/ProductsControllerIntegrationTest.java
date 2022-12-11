@@ -5,17 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import se.yrgo.SPGroup2.controllers.ProductController;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
