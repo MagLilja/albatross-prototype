@@ -3,11 +3,15 @@ package se.yrgo.SPGroup2.controllers;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.StockRepository;
+
+import java.net.URI;
 
 
 @RestController
@@ -17,23 +21,14 @@ public class AdminProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private StockRepository stockRepository;
-
     @PostMapping("")
-    public Product createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        product.setStock(new Stock(0, product));
         productRepository.save(product);
-        return product;
+        return ResponseEntity.created(URI.create("/admin/products")).build();
     }
 
-    @Transactional
-    @PostMapping("/{stock}")
-    public Product createProductWithStock(@RequestBody Product product, @PathVariable int stock) {
-//        productRepository.save(product);
-//        Stock newStock = new Stock(product, stock);
-//        stockRepository.save(newStock);
-        return product;
-    }
+
 
     @PutMapping(value = "/{artNr}")
     public Product updateProducts(@PathVariable String artNr, @RequestBody Product product) {

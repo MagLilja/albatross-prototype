@@ -19,7 +19,7 @@ public class AdminStockController {
 
     @Autowired
     private StockRepository stockRepository;
-    
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -33,7 +33,7 @@ public class AdminStockController {
     @Transient
     public void createStock(@PathVariable String artNum, @PathVariable int amountInStock) {
         Product byArtNum = productRepository.findByArtNum(artNum);
-        byArtNum.setStock(new Stock(amountInStock));
+//        byArtNum.setStock(new Stock(amountInStock));
         productRepository.save(byArtNum);
     }
 
@@ -42,30 +42,18 @@ public class AdminStockController {
         Product productStockToUpdate = productRepository.findByArtNum(artNum);
         Optional<Stock> stock = Optional.ofNullable(productStockToUpdate.getStock());
 
-//        System.out.println(stock.get());
         if (stock.isPresent()) {
             stock.get().setAmountInStock(amountInStock);
             stockRepository.save(stock.get());
         } else {
-            Stock stock1 = new Stock(amountInStock);
+            Stock stock1 = new Stock(amountInStock, productStockToUpdate);
             stockRepository.save(stock1);
             productStockToUpdate.setStock(stock1);
             productRepository.save(productStockToUpdate);
         }
-//        stock.ifPresentOrElse(ss->{
-//            ss.setAmountInStock(amountInStock);
-//            productStockToUpdate.setStock(ss);
-//            productRepository.save(productStockToUpdate);
-//        }, () -> {
-//            Stock newStock = new Stock();
-//            newStock.setAmountInStock(amountInStock);
-//            productStockToUpdate.setStock(newStock);
-//            System.out.println("hej");
-//            productRepository.save(productStockToUpdate);
-//        });
+
 
     }
-
 
 
 }

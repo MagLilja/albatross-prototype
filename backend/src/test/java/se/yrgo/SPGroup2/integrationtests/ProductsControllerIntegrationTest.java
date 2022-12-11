@@ -36,8 +36,8 @@ public class ProductsControllerIntegrationTest {
 
         List<Product> initalProducts = productController.getAllProducts();
 
-        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
-        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product = new Product("1234561", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product2 = new Product("1234562", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
 
         productRepository.saveAll(List.of(product, product2));
 
@@ -47,7 +47,7 @@ public class ProductsControllerIntegrationTest {
     @Test
     void getProductsByArtNr() {
         //given
-        Product product = new Product("1234563", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product = new Product("1234563", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
         //when
         productRepository.save(product);
 
@@ -59,10 +59,10 @@ public class ProductsControllerIntegrationTest {
     @Test
     void getProductsByType() {
         //given
-        Product product = new Product("1234565", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
-        Product product2 = new Product("1234566", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
-        Product product3 = new Product("1234567", ProductType.JACKETS, "Nike", ProductSize.S, "Black", 1000, stock);
-        Product product4 = new Product("1234568", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000, stock);
+        Product product = new Product("1234565", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product2 = new Product("1234566", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
+        Product product3 = new Product("1234567", ProductType.JACKETS, "Nike", ProductSize.S, "Black", 1000);
+        Product product4 = new Product("1234568", ProductType.VESTS, "Nike", ProductSize.S, "Black", 1000);
         List<Product> jackets = productController.getAllProducts().stream()
                 .filter(p -> p.getType().equals(ProductType.JACKETS))
                 .toList();

@@ -22,20 +22,21 @@ public class Product {
     private String color;
     private int price;
 
-    @OneToOne
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Stock stock;
 
     public Product() {
     }
 
-    public Product(String artNum, ProductType type, String model, ProductSize size, String color, int price, Stock stock) {
+    public Product(String artNum, ProductType type, String model, ProductSize size, String color, int price) {
         this.artNum = artNum;
         this.type = type;
         this.model = model;
         this.size = size;
         this.color = color;
         this.price = price;
-        this.stock = stock;
+        this.stock = new Stock(0, this);
     }
 
     public Stock getStock() {

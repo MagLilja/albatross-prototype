@@ -5,10 +5,15 @@ import jakarta.persistence.*;
 @Entity
 public class Stock {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "product_id")
+    private long id;
 
     private int amountInStock;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
 
@@ -16,15 +21,16 @@ public class Stock {
 
     }
 
-    public Stock(int amountInStock) {
+    public Stock(int amountInStock, Product product) {
         this.amountInStock = amountInStock;
+        this.product = product;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,5 +42,11 @@ public class Stock {
         this.amountInStock = amountInStock;
     }
 
+    public Product getProduct() {
+        return product;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

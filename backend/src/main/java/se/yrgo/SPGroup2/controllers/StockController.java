@@ -19,8 +19,8 @@ public class StockController {
     private ProductRepository productRepository;
 
     @GetMapping("/{artNr}")
-    public int getStockForArtNr(@PathVariable String artNr){
-        return 0; //stockRepository.findByProduct(productRepository.findByArtNum(artNr)).getAmountInStock();
+    public int getStockForArtNr(@PathVariable String artNr) {
+        return productRepository.findByArtNum(artNr).getStock().getAmountInStock();
     }
 
 }
