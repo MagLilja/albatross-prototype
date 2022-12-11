@@ -87,20 +87,7 @@ async function registerProduct() {
 
 <style scoped>
 
-select {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
 
-}
-
-input {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-}
 
 .nav-links > li:hover {
     text-decoration: underline;
