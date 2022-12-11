@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import ApiService from "../services/apiService";
-import {onMounted, Ref, ref, watchEffect} from "vue";
-import {Product, ProductType} from "../interface/interfaces";
-import ProductsComponent from "../components/ProductsComponent.vue";
+import {Ref, ref, watchEffect} from "vue";
+import {ProductType} from "../interface/interfaces";
 
 const route = useRoute()
 

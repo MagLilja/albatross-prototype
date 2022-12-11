@@ -3,12 +3,22 @@ import {onMounted, ref, Ref, watchEffect} from "vue";
 import {Product, ProductType} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
 import {productTypes} from "../../enums/enums.js";
-import ProductListComponent from "./ProductListComponent.vue";
+import AdminProductListComponent from "../../components/AdminProductListComponent.vue";
+import ModalBox from "../../components/ModalBox.vue";
 
 // create a ref to hold the list of products of the type
 const productsAllData: Ref<Product[]> = ref([])
 const products: Ref<Product[]> = ref([])
 const stocks: Ref<number[]> = ref([])
+const deleteConfirmation: Ref<boolean> = ref(false)
+const emittedProduct: Ref<Product> = ref({
+    artNum: "",
+    color: "",
+    model: "",
+    price: 0,
+    size: undefined,
+    type: undefined,
+})
 
 
 const type: Ref<ProductType> = ref(ProductType.ALL);
@@ -30,17 +40,32 @@ watchEffect(() => {
 
 })
 
+function test(product: Product, active: boolean) {
+    emittedProduct.value = product
+    deleteConfirmation.value = active
+}
+
+function deleteProduct(answer: boolean) {
+    if (answer) {
+        console.log("delete");
+    }
+    console.log("nope");
+}
+
+
+
 </script>
 
 <template>
     <div class="">
-        <div class="flex justify-center m-6 gap-6 items-center">Filter type:
-
+        <modal-box title="Do you want to delete this item?" @call-on-answer="deleteProduct" :active="deleteConfirmation"></modal-box>
+        <div class="flex justify-center m-6 gap-6 items-center ">Filter type:
+            {{ emittedProduct }}
             <select v-model="type">
                 <option v-for="type in productTypes" :value="type.toUpperCase()">{{ type }}</option>
             </select>
         </div>
-        <ProductListComponent :product-list="products"/>
+        <AdminProductListComponent :product-list="products" @delete-product="test"/>
     </div>
 </template>
 

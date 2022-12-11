@@ -2,8 +2,6 @@
 import TopNavigation from "./components/TopNavigationComponent.vue";
 import {computed, ref, toRefs} from 'vue'
 import {useScroll} from '@vueuse/core'
-import BooleanDisplay from "./components/BooleanDisplay.vue";
-import scroll from "./components/scroll.vue";
 
 const el = ref<HTMLElement | null>(null)
 const smooth = ref(false)

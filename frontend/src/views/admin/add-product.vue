@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {Ref, ref} from "vue";
-import {Product, ProductSize, ProductType} from "../../interface/interfaces";
+import {Product, ProductSize} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
 import {productTypes} from "../../enums/enums.js";
 

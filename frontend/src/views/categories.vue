@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import ApiService from "../services/apiService";
-import {onMounted, Ref, ref} from "vue";
+import {Ref, ref} from "vue";
 import {Product, ProductType} from "../interface/interfaces";
 import ProductsComponent from "../components/ProductsComponent.vue";
 

@@ -1,13 +1,26 @@
 <script setup lang="ts">
+import {Product} from "../interface/interfaces";
 
-import {Product} from "../../interface/interfaces";
+const props = defineProps<{
+    productList: Product[] }>()
 
-const props = defineProps<{ productList: Product[] }>()
+const deleteEmitName = 'deleteProduct';
+const deleteEmitBoolean = 'deleteProductBool';
+const emits = defineEmits<{
+    (e: typeof deleteEmitName, id: Product, active: boolean): void,
+    (e: typeof deleteEmitBoolean, id: Product): void,
+
+}>();
+
+const deleteProduct = (product: Product) => {
+    emits(deleteEmitName, product, true)
+}
 
 </script>
 
 
 <template>
+
     <div
         class="px-16 grid gap-x-4 grid-cols-[max-content_max-content_max-content_max-content_max-content_max-content_max-content_max-content]">
 
@@ -29,7 +42,7 @@ const props = defineProps<{ productList: Product[] }>()
             <div class="x">{{ product.color }}</div>
             <div class="x">{{ product.price }},00 SEK</div>
             <div class="x">{{ product.stock?.amountInStock ? product.stock.amountInStock : 0 }}</div>
-            <div class="text-[20px]">&#x1f5d1;</div>
+            <div class="text-[20px] cursor-pointer" @click="deleteProduct(product)" :product="product">&#x1f5d1;</div>
             <div class="text-[20px]">&#x1f58b;</div>
         </template>
     </div>
