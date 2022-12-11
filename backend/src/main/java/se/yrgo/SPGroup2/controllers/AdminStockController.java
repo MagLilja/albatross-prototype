@@ -2,13 +2,14 @@ package se.yrgo.SPGroup2.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
+import se.yrgo.SPGroup2.repositories.NoStockRecordException;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.StockRepository;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class AdminStockController {
 
     @Autowired
     private StockRepository stockRepository;
-
+    
     @Autowired
     private ProductRepository productRepository;
 
@@ -30,7 +31,6 @@ public class AdminStockController {
     }
 
     @PostMapping("/{artNum}/{amountInStock}")
-    @Transient
     public void createStock(@PathVariable String artNum, @PathVariable int amountInStock) {
         Product byArtNum = productRepository.findByArtNum(artNum);
 //        byArtNum.setStock(new Stock(amountInStock));
@@ -38,7 +38,7 @@ public class AdminStockController {
     }
 
     @PutMapping("/{artNum}/{amountInStock}")
-    public void updateStock(@PathVariable String artNum, @PathVariable int amountInStock) {
+    public ResponseEntity updateStock(@PathVariable String artNum, @PathVariable int amountInStock) {
         Product productStockToUpdate = productRepository.findByArtNum(artNum);
         Optional<Stock> stock = Optional.ofNullable(productStockToUpdate.getStock());
 
@@ -51,9 +51,15 @@ public class AdminStockController {
             productStockToUpdate.setStock(stock1);
             productRepository.save(productStockToUpdate);
         }
-
-
+        Optional<Stock> stockToUpdate =  stockRepository.findByProduct(productStockToUpdate);
+        if (stockToUpdate.isPresent()) {
+            stockToUpdate.get().setAmountInStock(amountInStock);
+            stockRepository.save(stockToUpdate.get());
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
+
 
 
 }
