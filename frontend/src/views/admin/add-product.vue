@@ -3,9 +3,9 @@
 import {Ref, ref} from "vue";
 import {Product, ProductSize, ProductType} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
+import {productTypes} from "../../enums/enums.js";
 
 const productSizes: Ref<ProductSize[]> = ref([ProductSize.XS, ProductSize.S, ProductSize.M, ProductSize.L, ProductSize.XL])
-const productTypes: Ref<ProductType[]> = ref([ProductType.PANTS, ProductType.JACKETS, ProductType.ACCESSORIES, ProductType.VESTS, ProductType.RAINCOATS, ProductType.WINDSTOPPERS])
 
 const newProduct: Ref<Product> = ref({
     artNum: "",
