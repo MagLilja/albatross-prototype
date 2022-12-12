@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {computed, onMounted, Ref, ref, toRefs} from "vue";
+import {onMounted, Ref, ref} from "vue";
 import ApiService from "../services/apiService";
 import {Product} from "../interface/interfaces";
-import { useScroll } from '@vueuse/core'
 
 const props = defineProps({
     // Props are defined here

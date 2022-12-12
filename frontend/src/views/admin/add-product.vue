@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 import {Ref, ref} from "vue";
-import {Product, ProductSize, ProductType} from "../../interface/interfaces";
+import {Product, ProductSize} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
+import {productTypes} from "../../enums/enums.js";
 
 const productSizes: Ref<ProductSize[]> = ref([ProductSize.XS, ProductSize.S, ProductSize.M, ProductSize.L, ProductSize.XL])
-const productTypes: Ref<ProductType[]> = ref([ProductType.PANTS, ProductType.JACKETS, ProductType.ACCESSORIES, ProductType.VESTS, ProductType.RAINCOATS, ProductType.WINDSTOPPERS])
 
 const newProduct: Ref<Product> = ref({
     artNum: "",
@@ -87,20 +87,7 @@ async function registerProduct() {
 
 <style scoped>
 
-select {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
 
-}
-
-input {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-}
 
 .nav-links > li:hover {
     text-decoration: underline;

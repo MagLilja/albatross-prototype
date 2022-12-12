@@ -1,13 +1,17 @@
+interface StockInterface {
+    id: number;
+    amountInStock: number;
+}
 
 export interface Product {
     "id"?: number,
     "artNum": string,
-    "type": ProductType | undefined,
+    "type": ProductType | undefined | string,
     model: string,
     size: ProductSize | undefined,
     color: string,
     price: number,
-    stock?: number,
+    stock?: StockInterface,
 }
 
 export enum ProductType {
@@ -17,6 +21,7 @@ export enum ProductType {
     VESTS = 'vests',
     RAINCOATS = 'raincoats',
     ACCESSORIES = 'accessories',
+    ALL = 'all'
 }
 
 
