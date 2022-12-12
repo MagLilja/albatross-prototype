@@ -8,26 +8,53 @@ function getHeaders() {
 }
 
 const ApiService = {
-    get: request('GET'),
-    post: request('POST'),
-    put: request('PUT'),
-    delete: request('DELETE')
-};
+    getDataFrom: async function (endPoint: string, headers?: Headers): Promise<Response> {
 
-function request(method: string) {
-    return (url: string, body?: unknown) => {
+        const myHeaders = getHeaders();
+
+
         const requestOptions = {
-            method,
-            headers: authHeader(url)
+            method: 'GET',
+            headers: headers ? headers : myHeaders,
         };
-        if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
-            requestOptions.body = JSON.stringify(body);
+
+
+        const promise = await fetch('/api/' + endPoint, requestOptions)
+
+        if (promise.ok) {
+            console.log(endPoint + ' fetched');
+            return promise
+        } else {
+            throw new Error('Something went wrong when fetching data from ' + '/api/' + endPoint)
         }
-        console.log(url, requestOptions);
-        return fetch(url, requestOptions).then(handleResponse);
-    }
-}
+    },
+    postDataTo: async function (endPoint: string, data: unknown, headers?: Headers): Promise<Response> {
+
+        const myHeaders = getHeaders();
+
+        const requestOptions = {
+            method: 'POST',
+            headers: headers ? headers : myHeaders,
+            body: JSON.stringify(data)
+        };
+
+        const promise = await fetch('/api/' + endPoint, requestOptions)
+
+        if (promise.ok) {
+            console.log(endPoint + ' posted');
+            return promise
+        } else {
+            throw new Error('Something went wrong when posting data')
+        }
+    },
+    deleteData: async function (endPoint: string, headers?: Headers): Promise<Response> {
+
+        const myHeaders = getHeaders();
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: headers ? headers : myHeaders,
+        };
 
 
 
