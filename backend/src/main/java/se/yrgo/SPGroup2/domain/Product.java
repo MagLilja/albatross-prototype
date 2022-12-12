@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,9 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Stock stock;
+
+    @ManyToMany
+    private List<Photo> photoList;
 
     public Product() {
     }
