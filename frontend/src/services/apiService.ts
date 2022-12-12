@@ -21,7 +21,7 @@ const ApiService = {
 
         if (promise.ok) {
             console.log(endPoint + ' fetched');
-            return  promise
+            return promise
         } else {
             throw new Error('Something went wrong when fetching data from ' + '/api/' + endPoint)
         }
@@ -38,13 +38,31 @@ const ApiService = {
 
         const promise = await fetch('/api/' + endPoint, requestOptions)
 
-            if (promise.ok) {
-                console.log(endPoint + ' posted');
-                return promise
-            } else {
-                throw new Error('Something went wrong when posting data')
-            }
-    }
+        if (promise.ok) {
+            console.log(endPoint + ' posted');
+            return promise
+        } else {
+            throw new Error('Something went wrong when posting data')
+        }
+    },
+    deleteData: async function (endPoint: string, headers?: Headers): Promise<Response> {
+
+        const myHeaders = getHeaders();
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: headers ? headers : myHeaders,
+        };
+
+        const promise = await fetch('/api/' + endPoint, requestOptions)
+
+        if (promise.ok) {
+            console.log(endPoint + ' deleted');
+            return promise
+        } else {
+            throw new Error('Something went wrong when deleting data')
+        }
+    },
 }
 
 export default ApiService

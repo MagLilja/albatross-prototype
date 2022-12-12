@@ -24,10 +24,12 @@ watchEffect(() => {
 
 function cancel() {
     emits('call-on-answer', false)
+    showModal.value = false
 }
 
 function deleteProduct() {
     emits('call-on-answer', true)
+    showModal.value = false
 }
 
 
@@ -36,14 +38,13 @@ function deleteProduct() {
 <template>
 
     <div>
-        <div v-if="showModal" class="w-screen h-screen fade bg-gray-600/20 absolute top-0 left-0 outline-none overflow-x-hidden overflow-y-auto" style="backdrop-filter: blur(2px);">{{ props.title }}
-            <div v-if="showModal" class="w-[200px] h-[200px] border-2 p-6 absolute top-0">{{ props.title }}
-                <button @click="deleteProduct()">Yes</button>
-                <button @click="cancel()">No</button>
+        <div v-if="showModal" class="w-screen h-screen fade bg-gray-600/20 absolute top-0 left-0 outline-none overflow-x-hidden overflow-y-auto" style="backdrop-filter: blur(2px);">
+            <div v-if="showModal" class="text-center w-[200px] h-[160px] border-2 p-6 absolute top-1/2 left-1/2 bg-gray-500 text-white">{{ props.title }}
+                <button class="text-black mx-1" @click="deleteProduct()">Yes</button>
+                <button class="text-black mx-1" @click="cancel()">No</button>
             </div>
         </div>
-        {{ props.active }}
-        {{ showModal }}
+        
     </div>
 
 

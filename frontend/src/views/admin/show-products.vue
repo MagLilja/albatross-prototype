@@ -23,11 +23,17 @@ const emittedProduct: Ref<Product> = ref({
 
 const type: Ref<ProductType> = ref(ProductType.ALL);
 
-onMounted(async () => {
+const loadProductList = async () => {
+    
     // get the products from the api
     let promise = await ApiService.getDataFrom("products");
     productsAllData.value = await promise.json() as Product[]
     products.value = productsAllData.value
+}
+
+onMounted( () => {
+    // get the products from the api
+    loadProductList()
 
 })
 
@@ -47,9 +53,8 @@ function test(product: Product, active: boolean) {
 
 function deleteProduct(answer: boolean) {
     if (answer) {
-        console.log("delete");
+        ApiService.deleteData("/admin/products/" + emittedProduct.value.artNum).finally(loadProductList)
     }
-    console.log("nope");
 }
 
 
@@ -58,9 +63,9 @@ function deleteProduct(answer: boolean) {
 
 <template>
     <div class="">
-        <modal-box title="Do you want to delete this item?" @call-on-answer="deleteProduct" :active="deleteConfirmation"></modal-box>
+        <ModalBox title="Do you want to delete this item?" @call-on-answer="deleteProduct" :active="deleteConfirmation"></ModalBox>
         <div class="flex justify-center m-6 gap-6 items-center ">Filter type:
-            {{ emittedProduct }}
+            
             <select v-model="type">
                 <option v-for="type in productTypes" :value="type.toUpperCase()">{{ type }}</option>
             </select>
