@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.yrgo.SPGroup2.domain.User;
+import se.yrgo.SPGroup2.domain.UserDetailsImpl;
 import se.yrgo.SPGroup2.repositories.UserRepository;
 
 @Service

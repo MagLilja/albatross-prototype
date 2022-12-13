@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
-import se.yrgo.SPGroup2.services.UserDetailsImpl;
+import se.yrgo.SPGroup2.domain.UserDetailsImpl;
 
 @Component
 public class JwtUtils {

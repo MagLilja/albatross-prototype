@@ -25,7 +25,7 @@ import se.yrgo.SPGroup2.enums.RoleEnum;
 import se.yrgo.SPGroup2.jsonWebToken.JwtUtils;
 import se.yrgo.SPGroup2.repositories.RoleRepository;
 import se.yrgo.SPGroup2.repositories.UserRepository;
-import se.yrgo.SPGroup2.services.UserDetailsImpl;
+import se.yrgo.SPGroup2.domain.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
