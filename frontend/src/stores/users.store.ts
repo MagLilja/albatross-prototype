@@ -1,9 +1,7 @@
-
-
-
 import {defineStore} from "pinia";
+import apiService from "../services/apiService";
 
-const baseUrl = `/users`;
+const baseUrl = `/api/users/all`;
 
 export const useUsersStore = defineStore({
     id: 'users',
@@ -12,10 +10,10 @@ export const useUsersStore = defineStore({
     }),
     actions: {
         async getAll() {
-            this.users = { loading: true };
-            fetchWrapper.get(baseUrl)
+            this.users = {loading: true};
+            apiService.get(baseUrl)
                 .then(users => this.users = users)
-                .catch(error => this.users = { error })
+                .catch(error => this.users = {error})
         }
     }
 });

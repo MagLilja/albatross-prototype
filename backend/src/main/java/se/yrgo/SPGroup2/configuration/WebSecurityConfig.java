@@ -68,6 +68,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/test/**").permitAll()
                         .requestMatchers("/products/**").permitAll()
+                        .requestMatchers("/users/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
