@@ -1,3 +1,26 @@
-INSERT INTO photo ( filename)
+INSERT INTO photo ( filename, type, model, color )
 VALUES
-    ( 'lysekilUnisexNavy.webp')
+    ( 'windbreakerHunneboUnisexNavy.webp', 'WINDSTOPPERS', 'Hunnebo Unisex', 'Navy'),
+    ( 'windbreakerHunneboUnisexOffwhite.webp', 'WINDSTOPPERS', 'Hunnebo Unisex', 'Offwhite'),
+    ( 'windbreakerJackeBovallUnisexGreen.webp', 'WINDSTOPPERS', 'Jacke Bovall Unisex', 'Green'),
+    ( 'windbreakerJackeBovallUnisexGrey.webp', 'WINDSTOPPERS', 'Jacke Bovall Unisex', 'Grey'),
+    ( 'windbreakerJackeBovallUnisexNavy.webp', 'WINDSTOPPERS', 'Jacke Bovall Unisex', 'Navy'),
+    ( 'windbreakerJackeBovallUnisexOffwhite.webp', 'WINDSTOPPERS', 'Jacke Bovall Unisex', 'Offwhite'),
+    ( 'windbreakerJackeBovallUnisexRed.webp', 'WINDSTOPPERS', 'Jacke Bovall Unisex', 'Red'),
+    ( 'windbreakerJackeKungshamnUnisexBlack.webp', 'WINDSTOPPERS', 'Jacke Kungshamn Unisex', 'Black'),
+    ( 'windbreakerJackeKungshamnUnisexRed.webp', 'WINDSTOPPERS', 'Jacke Kungshamn Unisex', 'Red'),
+    ( 'windbreakerLyckeUnisexNavy.webp', 'WINDSTOPPERS', 'Lycke Unisex', 'Navy'),
+    ( 'windbreakerLyckeUnisexRed.webp', 'WINDSTOPPERS', 'Lycke Unisex', 'Red'),
+    ( 'windbreakerLysekilJuniorBlack.webp', 'WINDSTOPPERS', 'Lysekil Junior', ''),
+    ( 'windbreakerLysekilJuniorNavy.webp', 'WINDSTOPPERS', 'Lysekil Junior', 'Navy'),
+    ( 'windbreakerLysekilJuniorRed.webp', 'WINDSTOPPERS', 'Lysekil Junior', 'Red'),
+    ( 'windbreakerLysekilUnisexBlack.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Black'),
+    ( 'windbreakerLysekilUnisexGrey.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Grey'),
+    ( 'windbreakerLysekilUnisexNavy.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexNavy1.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexNavy2.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexNavy3.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexNavy4.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexNavy5.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Navy'),
+    ( 'windbreakerLysekilUnisexOffwhite.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Offwhite'),
+    ( 'windbreakerLysekilUnisexRed.webp', 'WINDSTOPPERS', 'Lysekil Unisex', 'Red')
