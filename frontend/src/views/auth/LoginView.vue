@@ -19,25 +19,25 @@ function onSubmit(values: { username: string, password: string }, {setErrors}) {
 </script>
 
 <template>
-    <div>
-        <div class="alert alert-info">
+    <div class="flex items-center justify-center flex-col">
+        <div class="">
             Username: mod<br/>
             Password: yrgoP4ssword
         </div>
         <h2>Login</h2>
         <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
-            <div class="form-group">
+            <div class="">
                 <label>Username</label>
-                <Field name="username" type="text" class="form-control" :class="{ 'is-invalid': errors.username }"/>
+                <Field name="username" type="text" class="" :class="{ 'text-red': errors.username }"/>
                 <div class="invalid-feedback">{{ errors.username }}</div>
             </div>
-            <div class="form-group">
+            <div class="">
                 <label>Password</label>
                 <Field name="password" type="password" class="form-control" :class="{ 'is-invalid': errors.password }"/>
                 <div class="invalid-feedback">{{ errors.password }}</div>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary" :disabled="isSubmitting">
+                <button class="" :disabled="isSubmitting">
                     <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
                     Login
                 </button>

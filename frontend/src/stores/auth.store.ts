@@ -6,15 +6,14 @@ export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
         // initialize state from local storage to enable user to stay logged in
-        user: JSON.parse(localStorage.getItem('user')),
+        user: JSON.parse(localStorage.getItem('user') as string),
         returnUrl: null
     }),
     actions: {
-        async login(username, password) {
+        async login(username: string, password: string) {
             console.log("hej");
 
-            const userPromise = await ApiService.postDataTo(`auth/signin`, { username, password });
-            const user = await userPromise.json();
+            const user = await ApiService.post(`/api/auth/signin`, { username, password });
             // update pinia state
             console.log(user);
             this.user = user;

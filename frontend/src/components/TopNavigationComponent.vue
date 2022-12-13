@@ -3,12 +3,21 @@ import {useRoute} from "vue-router";
 import {defineProps, ref, watchEffect} from 'vue'
 import CustomerMenu from "./menus/CustomerMenu.vue";
 import AdminMenu from "./menus/AdminMenu.vue";
+import {storeToRefs} from "pinia";
+import {useAuthStore} from "../stores/auth.store";
+import {useUsersStore} from "../stores/users.store";
 
 const props = defineProps(['atTop'])
-
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+const usersStore = useUsersStore();
+const { users } = storeToRefs(usersStore);
 const route = useRoute()
 
 const isAdmin = ref(false)
+
+
+usersStore.getAll();
 
 watchEffect(() => {
     if (route.path.includes('admin')) {
@@ -27,15 +36,18 @@ watchEffect(() => {
             <router-link to="/"><img class="w-3/5 p-2 invert-1" :class="{'invert':props.atTop}"
                                      src="../assets/logo.webp" alt=""></router-link>
         </div>
-        <div v-if="!isAdmin">
+        <div >
             <customerMenu :at-top="atTop"/>
         </div>
-        <div v-else>
+        <div v-if="authStore.user">
             <adminMenu :at-top="atTop"/>
         </div>
 
         <div>
             <ul class="flex gap-4 items-center ">
+<!--                <li>-->
+<!--                    <router-link to="/login">Login</router-link>-->
+<!--                </li>-->
                 <li><a href="https://www.facebook.com/albatross.sportswear">
                     <img src="../assets/facebook.svg"
                          class="pt-1 invert"
