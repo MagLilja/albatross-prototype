@@ -1,6 +1,7 @@
 package se.yrgo.SPGroup2.domain;
 
 import jakarta.persistence.*;
+import se.yrgo.SPGroup2.enums.ProductType;
 
 import java.util.List;
 
@@ -10,6 +11,13 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String filename;
+
+    @Enumerated(EnumType.STRING)
+    private ProductType type;
+
+    private String model;
+
+    private String color;
 
 
     public Photo() {
