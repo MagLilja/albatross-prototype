@@ -23,9 +23,12 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(int id, String filename) {
+    public Photo(int id, String filename, ProductType type, String model, String color) {
         this.id = id;
         this.filename = filename;
+        this.type = type;
+        this.model = model;
+        this.color = color;
     }
 
     public int getId() {
@@ -42,5 +45,29 @@ public class Photo {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public ProductType getType() {
+        return type;
+    }
+
+    public void setType(ProductType type) {
+        this.type = type;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
