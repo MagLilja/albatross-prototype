@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,10 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Stock stock;
+
+    @ManyToMany()
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "filename",referencedColumnName = "filename"))
+    private List<Photo> photoList;
 
     public Product() {
     }
@@ -106,6 +111,14 @@ public class Product {
         this.price = price;
     }
 
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,7 +142,8 @@ public class Product {
                 ", size=" + size +
                 ", color='" + color + '\'' +
                 ", price=" + price +
-                ", stock=" + stock.getAmountInStock() +
+                ", stock=" + stock +
+                ", photoList=" + photoList +
                 '}';
     }
 }
