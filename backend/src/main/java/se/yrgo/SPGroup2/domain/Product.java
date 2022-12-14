@@ -29,7 +29,8 @@ public class Product {
     @PrimaryKeyJoinColumn
     private Stock stock;
 
-    @ManyToMany
+    @ManyToMany()
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "filename",referencedColumnName = "filename"))
     private List<Photo> photoList;
 
     public Product() {
@@ -110,6 +111,14 @@ public class Product {
         this.price = price;
     }
 
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,7 +142,8 @@ public class Product {
                 ", size=" + size +
                 ", color='" + color + '\'' +
                 ", price=" + price +
-                ", stock=" + stock.getAmountInStock() +
+                ", stock=" + stock +
+                ", photoList=" + photoList +
                 '}';
     }
 }
