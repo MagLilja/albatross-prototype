@@ -11,6 +11,10 @@ import se.yrgo.SPGroup2.services.ProductServiceImpl;
 
 import java.util.List;
 
+/**
+ * Controller for the Product class. This class handles all requests to the
+ * Product class. No endpoints here need authentication.
+ */
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -21,6 +25,7 @@ public class ProductController {
 
     /**
      * Endpoint for getting all products.
+     * This endpoint is open and need no authentication.
      *
      * @return List of all products or 404 if no products are found.
      */
@@ -36,6 +41,7 @@ public class ProductController {
 
     /**
      * Endpoint for a product based on its artNum.
+     * This endpoint is open and need no authentication.
      *
      * @param artNr
      * @return Product with the given artNum or 404 if no product is found.
@@ -53,7 +59,13 @@ public class ProductController {
         return new ResponseEntity<>(byArtNum, HttpStatus.OK);
     }
 
-
+    /**
+     * Endpoint for a product based on its Type.
+     * This endpoint is open and need no authentication.
+     *
+     * @param type
+     * @return Product with the given artNum or 404 if no product is found.
+     */
     @GetMapping(value = "/type")
     public List<Product> getProductsByType(@RequestParam String type) {
         return productServiceImpl.getProductsByType(ProductType.valueOf(type));
