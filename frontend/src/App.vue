@@ -18,7 +18,7 @@ const {top} = toRefs(arrivedState)
             <nav>
                 <top-navigation :atTop="top"/>
             </nav>
-            <div class="mb-0 mt-24 content-center justify-center mx-24">
+            <div class="mb-0 content-center justify-center">
                 <router-view class=""/>
             </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
