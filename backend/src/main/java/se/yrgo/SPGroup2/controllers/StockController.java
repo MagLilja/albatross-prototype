@@ -27,7 +27,7 @@ public class StockController {
 
     @GetMapping("/{artNr}")
     public ResponseEntity<Integer> getStockForArtNr(@PathVariable String artNr) {
-        return ResponseEntity.ok(productRepository.findByArtNum(artNr).getStock().getAmountInStock());
+        return ResponseEntity.ok(productRepository.findByArtNum(artNr).get().getStock().getAmountInStock());
 
 
     }

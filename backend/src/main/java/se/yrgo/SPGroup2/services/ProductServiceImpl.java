@@ -14,6 +14,7 @@ import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService  {
@@ -23,11 +24,11 @@ public class ProductServiceImpl implements ProductService  {
 
   @Override
   public Product getProductByArtNr(String artNr) throws NoProductFoundException {
-    Product byArtNum = productRepository.findByArtNum(artNr);
-    if (byArtNum == null) {
+    Optional<Product> byArtNum = productRepository.findByArtNum(artNr);
+    if (byArtNum.isEmpty()) {
       throw new NoProductFoundException("No product with that artNum");
     }
-    return byArtNum;
+    return byArtNum.get();
   }
 
   @Override

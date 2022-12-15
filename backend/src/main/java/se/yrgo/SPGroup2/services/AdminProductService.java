@@ -5,7 +5,7 @@ import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.payloads.AddProductRequest;
 
 public interface AdminProductService {
-    ResponseEntity<Product> createProduct(AddProductRequest productRequestPayload);
+    ResponseEntity<Product> createProduct(AddProductRequest productRequestPayload) throws ProductAlreadyExistsException, PhotoAlreadyExistsException;
 
     ResponseEntity<Product> updateProduct(AddProductRequest productRequestPayload);
 

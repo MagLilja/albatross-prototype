@@ -2,6 +2,7 @@ package se.yrgo.SPGroup2.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,10 @@ import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.payloads.AddProductRequest;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.services.AdminProductService;
+import se.yrgo.SPGroup2.services.PhotoAlreadyExistsException;
+import se.yrgo.SPGroup2.services.ProductAlreadyExistsException;
+
+import java.util.Optional;
 
 
 @RestController
@@ -23,9 +28,15 @@ public class AdminProductController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<Product> createProduct(@RequestBody AddProductRequest productRequestPayload) {
+    public ResponseEntity<?> createProduct(@RequestBody AddProductRequest productRequestPayload) {
 
-        return productService.createProduct(productRequestPayload);
+        try {
+            return productService.createProduct(productRequestPayload);
+        } catch (ProductAlreadyExistsException e) {
+            return new ResponseEntity<>("Product with Art Nr already exists", HttpStatus.I_AM_A_TEAPOT);
+        } catch (PhotoAlreadyExistsException e) {
+            return new ResponseEntity<>("Photo with that filename already exists", HttpStatus.I_AM_A_TEAPOT);
+        }
 
 
     }
@@ -48,8 +59,10 @@ public class AdminProductController {
     @DeleteMapping(value = "/{artNr}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Product> deleteProduct(@PathVariable String artNr) {
-        Product productToDelete = productRepository.findByArtNum(artNr);
-        productRepository.delete(productToDelete);
+        Optional<Product> productToDelete = productRepository.findByArtNum(artNr);
+        productToDelete.ifPresentOrElse(productRepository::delete, () -> {
+            throw new ProductNotFoundException("Product not found");
+        });
         return ResponseEntity.ok().build();
     }
 }
