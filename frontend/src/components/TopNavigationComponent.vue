@@ -4,8 +4,8 @@ import {defineProps, ref, watchEffect} from 'vue'
 import CustomerMenu from "./menus/CustomerMenu.vue";
 import AdminMenu from "./menus/AdminMenu.vue";
 import {storeToRefs} from "pinia";
-import {useAuthStore} from "../stores/auth.store";
-import {useUsersStore} from "../stores/users.store";
+import {useAuthStore} from "../stores/authStore";
+import {useUsersStore} from "../stores/usersStore";
 
 const props = defineProps(['atTop'])
 const authStore = useAuthStore();

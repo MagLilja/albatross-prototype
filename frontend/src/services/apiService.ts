@@ -1,4 +1,4 @@
-import {useAuthStore} from "../stores/auth.store";
+import {useAuthStore} from "../stores/authStore";
 
 function getHeaders() {
     const myHeaders = new Headers();

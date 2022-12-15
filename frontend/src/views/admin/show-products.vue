@@ -52,9 +52,10 @@ function test(product: Product, active: boolean) {
 }
 
 function deleteProduct(answer: boolean) {
-    if (answer) {
-        ApiService.deleteData("/admin/products/" + emittedProduct.value.artNum).finally(loadProductList)
-    }
+  if (answer) {
+    ApiService.delete("/api/admin/products/" + emittedProduct.value.artNum).finally(loadProductList)
+    deleteConfirmation.value = false
+  }
 }
 
 
