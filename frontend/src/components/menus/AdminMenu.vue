@@ -11,10 +11,10 @@ const props = defineProps<{
 <template>
     <ul class="nav-links flex gap-2 text-white" :class="{'text-black':props.atTop}">
         <li>
-            <router-link to="add-product">Add product</router-link>
+            <router-link to="/admin/add-product">Add product</router-link>
         </li>
         <li>
-            <router-link to="show-products">Show products</router-link>
+            <router-link to="/admin/show-products">Show products</router-link>
         </li>
         <li>
             <router-link to="/about">Orders</router-link>

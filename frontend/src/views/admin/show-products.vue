@@ -26,8 +26,8 @@ const type: Ref<ProductType> = ref(ProductType.ALL);
 const loadProductList = async () => {
     
     // get the products from the api
-    let promise = await ApiService.getDataFrom("products");
-    productsAllData.value = await promise.json() as Product[]
+    productsAllData.value = await ApiService.get("/api/products") as Product[];
+    // productsAllData.value = await promise.json() as Product[]
     products.value = productsAllData.value
 }
 

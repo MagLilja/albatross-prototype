@@ -1,6 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import home from "../views/home.vue";
 import admin from "../views/admin.vue";
+import {useAuthStore} from "../stores/auth.store";
+import LoginView from "../views/auth/LoginView.vue";
 
 const router = createRouter({
     history: createWebHistory('/'),
@@ -14,6 +16,11 @@ const router = createRouter({
             path: '/shop',
             name: 'shop',
             component: () => import('../views/shop.vue'),
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginView,
         },
         {
             path: '/categories',
@@ -40,5 +47,16 @@ const router = createRouter({
         }
     ]
 })
+
+
+router.beforeEach(async (to) => {
+    const authRequired = to.path.includes("admin")
+    const auth = useAuthStore();
+
+    if (authRequired && !auth.user) {
+        auth.returnUrl = to.fullPath;
+        return '/login';
+    }
+});
 
 export default router
