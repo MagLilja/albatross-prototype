@@ -4,6 +4,7 @@ package se.yrgo.SPGroup2.controllers;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 import se.yrgo.SPGroup2.domain.Product;
@@ -22,6 +23,7 @@ public class AdminProductController {
     private ProductRepository productRepository;
 
     @PostMapping("")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         product.setStock(new Stock(0, product));
         productRepository.save(product);
@@ -31,6 +33,7 @@ public class AdminProductController {
 
 
     @PutMapping(value = "/{artNr}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Product updateProducts(@PathVariable String artNr, @RequestBody Product product) {
         Product productToUpdate = productRepository.findByArtNum(artNr);
         productToUpdate.setArtNum(product.getArtNum());
@@ -44,9 +47,10 @@ public class AdminProductController {
     }
 
     @DeleteMapping(value = "/{artNr}")
-    public Product deleteProduct(@PathVariable String artNr) {
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Product>  deleteProduct(@PathVariable String artNr) {
         Product productToDelete = productRepository.findByArtNum(artNr);
         productRepository.delete(productToDelete);
-        return productToDelete;
+        return ResponseEntity.ok().build();
     }
 }
