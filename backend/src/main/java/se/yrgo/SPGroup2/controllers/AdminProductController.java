@@ -33,9 +33,9 @@ public class AdminProductController {
         try {
             return productService.createProduct(productRequestPayload);
         } catch (ProductAlreadyExistsException e) {
-            return new ResponseEntity<>("Product with Art Nr already exists", HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>("Product with Art Nr already exists", HttpStatus.BAD_REQUEST);
         } catch (PhotoAlreadyExistsException e) {
-            return new ResponseEntity<>("Photo with that filename already exists", HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>("Photo with that filename already exists", HttpStatus.BAD_REQUEST);
         }
 
 

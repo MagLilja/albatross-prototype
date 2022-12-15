@@ -51,7 +51,9 @@ function authHeader(url: string) {
 
 function handleResponse(response: Response) {
     return response.text().then(text => {
-        const data = text && JSON.parse(text);
+        console.log(text);
+        console.log(response);
+        const data = text
 
         if (!response.ok) {
             const { user, logout } = useAuthStore();
@@ -60,11 +62,11 @@ function handleResponse(response: Response) {
                 logout();
             }
 
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+            const error = (data) || response.statusText;
+            return Promise.resolve(error);
         }
 
-        return data;
+        return text && JSON.parse(text);
     });
 }
 

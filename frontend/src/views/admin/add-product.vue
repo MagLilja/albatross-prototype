@@ -19,6 +19,12 @@ const newProduct: Ref<Product> = ref({
 const stock = ref(0)
 const status = ref("")
 
+interface ProductPayload {
+    product: Product,
+    amountInStock: number,
+    photos: string[]
+}
+
 function resetProductInput() {
     newProduct.value = {
         artNum: "",
@@ -32,10 +38,20 @@ function resetProductInput() {
 }
 
 async function registerProduct() {
-    let promise = await ApiService.postDataTo("admin/products/" + stock.value, newProduct.value);
-    status.value = promise.status == 200 ? "Product added" : "Error"
+    const payload: ProductPayload = {
+        product: newProduct.value,
+        amountInStock: stock.value,
+        photos: ["test3454", "test345"]
+    }
+
+    console.log(JSON.stringify(payload));
+    const payloa2d = 2;
+
+    let promise = await ApiService.post("/api/admin/products", payload)
+    status.value = promise.status < 300 ? "Product added" : promise
     resetProductInput();
 }
+
 
 
 </script>
@@ -86,7 +102,6 @@ async function registerProduct() {
 
 
 <style scoped>
-
 
 
 .nav-links > li:hover {

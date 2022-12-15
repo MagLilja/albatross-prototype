@@ -36,10 +36,10 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         List<String> photos = productRequestPayload.getPhotos();
         for (String photo : photos) {
-            Photo newPhoto = new Photo(photo);
-            validatePhoto(newPhoto);
-            photoRepository.save(newPhoto);
-            photoList.add(newPhoto);
+            Optional<Photo> optionalPhoto = validatePhoto(photo);
+            Photo entity = optionalPhoto.get();
+            photoRepository.save(entity);
+            photoList.add(entity);
         }
 
         newProduct.setPhotoList(photoList);
@@ -47,13 +47,15 @@ public class AdminProductServiceImpl implements AdminProductService {
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
 
-    private void validatePhoto(Photo newPhoto) throws PhotoAlreadyExistsException {
-        if (newPhoto.getFilename() == null || newPhoto.getFilename().isEmpty()) {
+    private Optional<Photo> validatePhoto(String filename) throws PhotoAlreadyExistsException {
+        if (filename == null || filename.isEmpty()) {
             throw new IllegalArgumentException("Photo url cannot be empty");
         }
-        Optional<Photo> byFilename = photoRepository.findByFilename(newPhoto.getFilename());
+        Optional<Photo> byFilename = photoRepository.findByFilename(filename);
         if (byFilename.isPresent()) {
-            throw new PhotoAlreadyExistsException("Photo already exists");
+            return byFilename;
+        } else {
+            return Optional.of(new Photo(filename));
         }
     }
 
