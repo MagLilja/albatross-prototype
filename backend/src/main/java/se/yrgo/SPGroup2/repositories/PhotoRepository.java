@@ -11,10 +11,5 @@ import java.util.List;
 @Repository
 public interface PhotoRepository extends JpaRepository<Product, Long> {
 
-    public List<Photo> findByType(ProductType type);
-
-    public List<Photo> findByModel(String model);
-
-    public List<Photo> findByColor(String color);
 
 }

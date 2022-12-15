@@ -1,5 +1,6 @@
 insert into photo (id, filename)
 values  (1, 'windbreakerHunneboUnisexNavy.webp'),
+        (2, 'windbreakerHunneboUnisexOffwhite_2.webp'),
         (3, 'windbreakerHunneboUnisexOffwhite.webp'),
         (4, 'windbreakerJackeBovallUnisexGreen.webp'),
         (5, 'windbreakerJackeBovallUnisexGrey.webp'),

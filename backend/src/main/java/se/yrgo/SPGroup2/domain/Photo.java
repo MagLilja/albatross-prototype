@@ -26,8 +26,8 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(int id, String filename, ProductType type, String model, String color) {
-        this.id = id;
+    public Photo(String filename) {
+
         this.filename = filename;
 
     }
