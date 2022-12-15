@@ -7,6 +7,7 @@ import se.yrgo.SPGroup2.domain.Photo;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
 import se.yrgo.SPGroup2.domain.payloads.AddProductRequest;
+import se.yrgo.SPGroup2.repositories.PhotoRepository;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 
 import java.net.URI;
@@ -19,6 +20,9 @@ public class AdminProductServiceImpl implements AdminProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private PhotoRepository photoRepository;
+
 
     @Override
     public ResponseEntity<Product> createProduct(AddProductRequest productRequestPayload) {
@@ -28,7 +32,9 @@ public class AdminProductServiceImpl implements AdminProductService {
         List<Photo> photoList = new ArrayList<>();
 
         productRequestPayload.getPhotos().forEach(string -> {
-            photoList.add(new Photo(string));
+            Photo newPhoto = new Photo(string);
+            photoRepository.save(newPhoto);
+            photoList.add(newPhoto);
         });
 
         newProduct.setPhotoList(photoList);

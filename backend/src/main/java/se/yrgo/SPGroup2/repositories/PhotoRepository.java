@@ -9,7 +9,7 @@ import se.yrgo.SPGroup2.enums.ProductType;
 import java.util.List;
 
 @Repository
-public interface PhotoRepository extends JpaRepository<Product, Long> {
+public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
 
 }

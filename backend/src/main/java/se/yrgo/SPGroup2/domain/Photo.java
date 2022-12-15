@@ -9,8 +9,8 @@ import java.util.List;
 @Entity
 public class Photo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
 
     @Column(unique = true)
     private String filename;
@@ -32,11 +32,11 @@ public class Photo {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
