@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.yrgo.SPGroup2.domain.Product;
+import se.yrgo.SPGroup2.domain.Stock;
 import se.yrgo.SPGroup2.domain.payloads.AddProductRequest;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 import se.yrgo.SPGroup2.services.AdminProductService;
@@ -44,7 +45,7 @@ public class AdminProductController {
 
     @PutMapping(value = "/{artNr}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Product updateProducts(@PathVariable String artNr, @RequestBody Product product) {
+    public ResponseEntity<?> updateProducts(@PathVariable String artNr, @RequestBody AddProductRequest payload) {
 //        Product productToUpdate = productRepository.findByArtNum(artNr);
 //        productToUpdate.setArtNum(product.getArtNum());
 //        productToUpdate.setType(product.getType());
@@ -52,8 +53,18 @@ public class AdminProductController {
 //        productToUpdate.setSize(product.getSize());
 //        productToUpdate.setColor(product.getColor());
 //        productToUpdate.setPrice(product.getPrice());
-//        productRepository.save(productToUpdate);
-        return null;
+
+        Product product = payload.getProduct();
+        Stock stock = product.getStock();
+        if (stock != null) {
+            stock.setAmountInStock(payload.getAmountInStock());
+        } else {
+            stock = new Stock(payload.getAmountInStock(), product);
+
+        }
+        product.setStock(stock);
+        productRepository.save(product);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{artNr}")

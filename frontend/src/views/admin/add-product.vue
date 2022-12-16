@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, Ref, ref, watchEffect} from "vue";
+import {onMounted, Ref, ref, watch, watchEffect} from "vue";
 import {Product, ProductSize} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
 import {productTypes} from "../../enums/enums.js";
@@ -38,9 +38,14 @@ watchEffect(async () => {
         console.log(promise);
         newProduct.value = promise
     } else {
-        resetProductInput()
+        // resetProductInput()
         isEdit.value = false
     }
+})
+
+watch (isEdit, (newProduct:boolean) => {
+    resetProductInput()
+    status.value = ""
 })
 
 
@@ -84,9 +89,9 @@ async function updateProduct() {
         photos: ["test3454", "test345"]
     }
 
-    let promise = await ApiService.put("/api/admin/products", payload)
-    status.value = await promise.artNum ? "Product added" : promise
-    resetProductInput();
+    let promise = await ApiService.put("/api/admin/products/" + newProduct.value.artNum, payload)
+    status.value = await promise.artNum ? "Product updated" : promise
+    // resetProductInput();
 }
 
 

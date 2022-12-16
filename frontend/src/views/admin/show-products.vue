@@ -36,9 +36,9 @@ onMounted(() => {
 
 watchEffect(() => {
   if (type.value.toUpperCase() !== ProductType.ALL.toUpperCase()) {
-    products.value = productsAllData.value.filter(product => product.type === type.value.toUpperCase())
+    products.value = productsAllData.value.filter(product => product.type === type.value.toUpperCase()).sort((a, b) => a.artNum.localeCompare(b.artNum))
   } else {
-    products.value = productsAllData.value
+    products.value = productsAllData.value.sort((a, b) => a.artNum.localeCompare(b.artNum))
   }
 
 })
