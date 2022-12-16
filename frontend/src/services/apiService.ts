@@ -24,7 +24,6 @@ function request(method: string) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);
         }
-        console.log(url, requestOptions);
         return fetch(url, requestOptions).then(handleResponse);
     }
 }
@@ -35,14 +34,10 @@ function authHeader(url: string) {
     // return auth header with jwt if user is logged in and request is to the api url
     const { user } = useAuthStore();
     let boolean = !!user?.accessToken;
-    console.log("!!user?.accessToken", boolean);
     const isLoggedIn = boolean;
     const isApiUrl = url.startsWith("/api");
-    console.log("isApiUrl",isApiUrl);
     if (isLoggedIn && isApiUrl) {
-        console.log("isLoggedIn && isApiUrl");
         let authorizationToken = `Bearer ${user.accessToken}`;
-        console.log(authorizationToken);
         return { Authorization: authorizationToken };
     } else {
         return {};
@@ -51,8 +46,6 @@ function authHeader(url: string) {
 
 function handleResponse(response: Response) {
     return response.text().then(text => {
-        console.log(text);
-        console.log(response);
         const data = text
 
         if (!response.ok) {

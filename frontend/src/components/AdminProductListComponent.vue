@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {Product} from "../interface/interfaces";
+import router from "../router";
 
 const props = defineProps<{
     productList: Product[] }>()
@@ -12,6 +13,10 @@ const emits = defineEmits<{
 
 const deleteProduct = (product: Product) => {
     emits(deleteEmitName, product, true)
+}
+
+function updateProduct(product: Product) {
+    router.push({name: 'add-product', query: {id: product.artNum}})
 }
 </script>
 
@@ -42,7 +47,7 @@ const deleteProduct = (product: Product) => {
             <div class="x">{{ product.price }},00 SEK</div>
             <div class="x">{{ product.stock?.amountInStock ? product.stock.amountInStock : 0 }}</div>
             <div class="text-[20px] cursor-pointer" @click="deleteProduct(product)" :product="product">&#x1f5d1;</div>
-            <div class="text-[20px]">&#x1f58b;</div>
+            <div class="text-[20px] cursor-pointer" @click="updateProduct(product)">&#x1f58b;</div>
         </template>
     </div>
 

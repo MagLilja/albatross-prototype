@@ -25,14 +25,11 @@ const type: Ref<ProductType> = ref(ProductType.ALL);
 
 const loadProductList = async () => {
 
-  // get the products from the api
   productsAllData.value = await ApiService.get("/api/products") as Product[];
-  // productsAllData.value = await promise.json() as Product[]
   products.value = productsAllData.value
 }
 
 onMounted(() => {
-  // get the products from the api
   loadProductList()
 
 })
