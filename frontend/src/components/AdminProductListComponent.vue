@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import {Product} from "../interface/interfaces";
+import {ProductInterface} from "../interface/interfaces";
 import router from "../router";
 
 const props = defineProps<{
-    productList: Product[] }>()
+    productList: ProductInterface[] }>()
 
 const deleteEmitName = 'deleteProduct';
 const emits = defineEmits<{
-    (e: typeof deleteEmitName, id: Product, active: boolean): void,
+    (e: typeof deleteEmitName, id: ProductInterface, active: boolean): void,
 
 }>();
 
-const deleteProduct = (product: Product) => {
+const deleteProduct = (product: ProductInterface) => {
     emits(deleteEmitName, product, true)
 }
 
-function updateProduct(product: Product) {
+function updateProduct(product: ProductInterface) {
     router.push({name: 'add-product', query: {id: product.artNum}})
 }
 </script>

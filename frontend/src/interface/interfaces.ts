@@ -8,7 +8,7 @@ interface PhotoInterface {
     filename: string;
 }
 
-export interface Product {
+export interface ProductInterface {
     "id"?: number,
     "artNum": string,
     "type": ProductType | undefined | string,

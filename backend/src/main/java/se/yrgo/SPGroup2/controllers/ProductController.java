@@ -67,8 +67,24 @@ public class ProductController {
      * @return Product with the given artNum or 404 if no product is found.
      */
     @GetMapping(value = "/type")
-    public List<Product> getProductsByType(@RequestParam String type) {
-        return productServiceImpl.getProductsByType(ProductType.valueOf(type));
+    public ResponseEntity<?> getProductsByType(@RequestParam String type) {
+        return new ResponseEntity<>(productServiceImpl.getProductsByType(ProductType.valueOf(type)), HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint for a product based on its model.
+     * This endpoint is open and need no authentication.
+     *
+     * @param model
+     * @return a list of products with the given model or 404 if no product is found.
+     */
+    @GetMapping(value = "/model")
+    public ResponseEntity<?> getProductsByModel(@RequestParam String model) {
+        try {
+            return new ResponseEntity<>(productServiceImpl.getProductsByModel(model), HttpStatus.OK);
+        } catch (NoProductFoundException e) {
+            return new ResponseEntity<>("No products with that model found", HttpStatus.NOT_FOUND);
+        }
     }
 
 }

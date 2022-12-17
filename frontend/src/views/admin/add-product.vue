@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {onMounted, Ref, ref, watch, watchEffect} from "vue";
-import {Product, ProductSize} from "../../interface/interfaces";
+import {ProductInterface, ProductSize} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
 import {productTypes} from "../../enums/enums.js";
 import router from "../../router";
@@ -9,7 +9,7 @@ import {useRoute} from "vue-router";
 
 
 const props = defineProps<{
-    productToUpdate: Product
+    productToUpdate: ProductInterface
 }>()
 
 const route = useRoute()
@@ -17,7 +17,7 @@ const route = useRoute()
 
 const productSizes: Ref<ProductSize[]> = ref([ProductSize.XS, ProductSize.S, ProductSize.M, ProductSize.L, ProductSize.XL])
 const isEdit: Ref<boolean> = ref(false)
-const newProduct: Ref<Product> = ref({
+const newProduct: Ref<ProductInterface> = ref({
     artNum: "",
     color: "",
     model: "",
@@ -53,7 +53,7 @@ const stock = ref(0)
 const status = ref("")
 
 interface ProductPayload {
-    product: Product,
+    product: ProductInterface,
     amountInStock: number,
     photos: string[]
 }

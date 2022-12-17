@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import {onMounted, ref, Ref, watchEffect} from "vue";
-import {Product, ProductType} from "../../interface/interfaces";
+import {ProductInterface, ProductType} from "../../interface/interfaces";
 import ApiService from "../../services/apiService";
 import {productTypes} from "../../enums/enums.js";
 import AdminProductListComponent from "../../components/AdminProductListComponent.vue";
 import ModalBox from "../../components/ModalBox.vue";
 
 // create a ref to hold the list of products of the type
-const productsAllData: Ref<Product[]> = ref([])
-const products: Ref<Product[]> = ref([])
+const productsAllData: Ref<ProductInterface[]> = ref([])
+const products: Ref<ProductInterface[]> = ref([])
 const stocks: Ref<number[]> = ref([])
 const deleteConfirmation: Ref<boolean> = ref(false)
-const emittedProduct: Ref<Product> = ref({
+const emittedProduct: Ref<ProductInterface> = ref({
   artNum: "",
   color: "",
   model: "",
@@ -25,7 +25,7 @@ const type: Ref<ProductType> = ref(ProductType.ALL);
 
 const loadProductList = async () => {
 
-  productsAllData.value = await ApiService.get("/api/products") as Product[];
+  productsAllData.value = await ApiService.get("/api/products") as ProductInterface[];
 
   products.value = productsAllData.value
 }
@@ -44,7 +44,7 @@ watchEffect(() => {
 
 })
 
-function test(product: Product, active: boolean) {
+function test(product: ProductInterface, active: boolean) {
   emittedProduct.value = product
   deleteConfirmation.value = active
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {onMounted, Ref, ref} from "vue";
 import ApiService from "../services/apiService";
-import {Product, ProductSize} from "../interface/interfaces";
+import {ProductInterface, ProductSize} from "../interface/interfaces";
+import router from "../router";
 
 const props = defineProps({
     // Props are defined here
@@ -15,7 +16,7 @@ const props = defineProps({
     },
 })
 
-const products: Ref<Product[]> = ref([])
+const products: Ref<ProductInterface[]> = ref([])
 
 onMounted(async () => {
     // This is called when the component is mounted
@@ -23,37 +24,42 @@ onMounted(async () => {
     // to fetch data
     if (props.category === "All") {
         // fetch all products
-        const loadedProducts = await ApiService.get("/api/products") as Product[];
+        const loadedProducts = await ApiService.get("/api/products") as ProductInterface[];
         products.value = loadedProducts.filter(prod => {
-            console.log(prod, (prod.size === ProductSize.M));
             return prod.size === ProductSize.M
         })
     } else {
         // fetch products of the category
-        products.value = await ApiService.get("/api/products/type?type=" + props.category.toString().toUpperCase()) as Product[];
+        const loadedProducts = await ApiService.get("/api/products/type?type=" + props.category.toString().toUpperCase()) as ProductInterface[];
+        products.value = loadedProducts.filter(prod => {
+            return prod.size === ProductSize.M
+        })
     }
 })
 
-function getProdImg(product: Product) {
+function getProdImg(product: ProductInterface) {
     return null
 }
 
 
-function urlForProductImage(product: Product): string {
-
+function urlForProductImage(product: ProductInterface): string {
     return product.photoList[0] ? product.photoList[0].filename : "windbreakerHunneboUnisexOffwhite.webp"
+}
 
-    // TODO get image from api
-
+function goToProduct(product: ProductInterface) {
+    router.push({name: "productPage", params: {artNr: product.artNum}})
 }
 
 </script>
 
+
 <template>
 
-    <div class="flex flex-wrap gap-8 mx-auto -z-20 w-2/3">
-        <div v-for="product in products"
-             class="cursor-pointer bg-center bg-cover w-[250px]  flex flex-col justify-start gap-1  hover:bg-gray-50">
+    <div class="flex flex-wrap gap-8 mx-auto mt-44 w-2/3 justify-center">
+
+        <div class="text-4xl ml-24  my-6 basis-full">Products <div class="text-xs "><router-link to="shop">Shop</router-link> / {{ props.category }}</div></div>
+                <div v-for="product in products"
+             class="cursor-pointer bg-center bg-cover w-[250px]  flex flex-col justify-start gap-1  hover:bg-[#f2f2f4] p-2" @click.prevent="goToProduct(product)">
             <img class="object-scale-down h-[290px]]" src="" alt=""
                  :srcset="'src/assets/products/' + urlForProductImage(product)">
             <div class="flex gap-1">
