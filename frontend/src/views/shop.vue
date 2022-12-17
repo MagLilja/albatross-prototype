@@ -45,7 +45,7 @@ function goToProduct(clothing_type : string) {
 </script>
 
 <template>
-    <div class="flex flex-wrap gap-8 text-center text-white  justify-center">
+    <div class="flex flex-wrap gap-8 text-center text-white  justify-center mt-44 w-2/3 mx-auto">
         <div  @click="goToProduct(type.type)" :style="{'background-image': type.image}" v-for="type in clothing_types" class="cursor-pointer  bg-center bg-cover w-[200px] h-[80px] flex justify-center items-center relative hover:border-2 hover:border-black -z-20">
             {{ type.type }}
         </div>

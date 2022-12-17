@@ -26,6 +26,7 @@ const type: Ref<ProductType> = ref(ProductType.ALL);
 const loadProductList = async () => {
 
   productsAllData.value = await ApiService.get("/api/products") as Product[];
+
   products.value = productsAllData.value
 }
 

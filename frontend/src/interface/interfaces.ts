@@ -3,6 +3,11 @@ interface StockInterface {
     amountInStock: number;
 }
 
+interface PhotoInterface {
+    id: number;
+    filename: string;
+}
+
 export interface Product {
     "id"?: number,
     "artNum": string,
@@ -12,6 +17,7 @@ export interface Product {
     color: string,
     price: number,
     stock?: StockInterface,
+    photoList?: PhotoInterface[]
 }
 
 export enum ProductType {

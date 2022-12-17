@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, Ref, ref} from "vue";
 import ApiService from "../services/apiService";
-import {Product} from "../interface/interfaces";
+import {Product, ProductSize} from "../interface/interfaces";
 
 const props = defineProps({
     // Props are defined here
@@ -23,17 +23,25 @@ onMounted(async () => {
     // to fetch data
     if (props.category === "All") {
         // fetch all products
-        products.value = await ApiService.getDataFrom("products") as Product[];
+        const loadedProducts = await ApiService.get("/api/products") as Product[];
+        products.value = loadedProducts.filter(prod => {
+            console.log(prod, (prod.size === ProductSize.M));
+            return prod.size === ProductSize.M
+        })
     } else {
         // fetch products of the category
-        products.value = await ApiService.getDataFrom("products/type?type=" + props.category.toString().toUpperCase()) as Product[];
+        products.value = await ApiService.get("/api/products/type?type=" + props.category.toString().toUpperCase()) as Product[];
     }
 })
 
+function getProdImg(product: Product) {
+    return null
+}
 
 
 function urlForProductImage(product: Product): string {
-    return "src/assets/products/smogen.png"
+
+    return product.photoList[0] ? product.photoList[0].filename : "windbreakerHunneboUnisexOffwhite.webp"
 
     // TODO get image from api
 
@@ -43,17 +51,18 @@ function urlForProductImage(product: Product): string {
 
 <template>
 
-    <div class="flex flex-wrap gap-8 mx-14 -z-20">
+    <div class="flex flex-wrap gap-8 mx-auto -z-20 w-2/3">
         <div v-for="product in products"
-             class="cursor-pointer bg-center bg-cover w-[200px] h-[80px] flex flex-col justify-start gap-1  relative hover:bg-amber-100">
-            <img src="" alt="" :srcset="urlForProductImage(product)">
+             class="cursor-pointer bg-center bg-cover w-[250px]  flex flex-col justify-start gap-1  hover:bg-gray-50">
+            <img class="object-scale-down h-[290px]]" src="" alt=""
+                 :srcset="'src/assets/products/' + urlForProductImage(product)">
             <div class="flex gap-1">
-                    <span class="capitalize">{{
+                    <span class="capitalize font-bold">{{
                             product.type.toLocaleLowerCase().substring(0, product.type.length - 1)
-                        }}</span>
-                <span>{{ product.model }}</span>
-                <span>{{ product.color }}</span></div>
-            <div>{{ product.price }},00 €</div>
+                        }} {{ product.model }}</span>
+            </div>
+            <span>{{ product.color }}</span>
+            <div>{{ product.price }},00 SEK</div>
         </div>
     </div>
 
