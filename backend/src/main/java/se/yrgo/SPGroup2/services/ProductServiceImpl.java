@@ -37,6 +37,15 @@ public class ProductServiceImpl implements ProductService  {
   }
 
   @Override
+  public List<Product> getProductsByModel(String model) throws NoProductFoundException {
+    if (productRepository.findByModel(model).isPresent()) {
+      return productRepository.findByModel(model).get();
+    } else {
+      throw new NoProductFoundException("No products found");
+    }
+  }
+
+  @Override
   public List<Product> getAllProducts() throws NoProductFoundException {
     List<Product> all = productRepository.findAll();
     if (all.isEmpty()) {
