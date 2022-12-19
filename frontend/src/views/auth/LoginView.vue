@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Form, Field} from 'vee-validate';
 import * as Yup from 'yup';
-import {useAuthStore} from "../../stores/auth.store";
+import {useAuthStore} from "../../stores/authStore";
 
 
 const schema = Yup.object().shape({
@@ -19,13 +19,13 @@ function onSubmit(values: { username: string, password: string }, {setErrors}) {
 </script>
 
 <template>
-    <div class="flex items-center justify-center flex-col">
-        <div class="">
+    <div class="flex items-center justify-center flex-col pt-44 ">
+        <div class="my-12">
             Username: mod<br/>
             Password: yrgoP4ssword
         </div>
         <h2>Login</h2>
-        <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
+        <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }" class="w-56">
             <div class="">
                 <label>Username</label>
                 <Field name="username" type="text" class="" :class="{ 'text-red': errors.username }"/>

@@ -21,7 +21,7 @@ public class AdminStockController {
 
     @Autowired
     private StockRepository stockRepository;
-    
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -33,29 +33,19 @@ public class AdminStockController {
 
     @PostMapping("/{artNum}/{amountInStock}")
     public void createStock(@PathVariable String artNum, @PathVariable int amountInStock) {
-        Product byArtNum = productRepository.findByArtNum(artNum);
+        Optional<Product> byArtNum = productRepository.findByArtNum(artNum);
 //        byArtNum.setStock(new Stock(amountInStock));
-        productRepository.save(byArtNum);
+        byArtNum.ifPresentOrElse(productRepository::save, () -> {
+            throw new ProductNotFoundException("Product not found");
+        });
     }
 
     @PutMapping("/{artNum}/{amountInStock}")
     public ResponseEntity updateStock(@PathVariable String artNum, @PathVariable int amountInStock) {
-        Product productStockToUpdate = productRepository.findByArtNum(artNum);
-        Optional<Stock> stock = Optional.ofNullable(productStockToUpdate.getStock());
 
-        if (stock.isPresent()) {
-            stock.get().setAmountInStock(amountInStock);
-            stockRepository.save(stock.get());
-            return ResponseEntity.ok().build();
-        } else {
-            Stock stock1 = new Stock(amountInStock, productStockToUpdate);
-            stockRepository.save(stock1);
-            productStockToUpdate.setStock(stock1);
-            productRepository.save(productStockToUpdate);
-            return ResponseEntity.created(URI.create("admin/stock")).build();
+            return null;
         }
     }
 
 
 
-}

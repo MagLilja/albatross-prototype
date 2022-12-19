@@ -1,4 +1,4 @@
-import {useAuthStore} from "../stores/auth.store";
+import {useAuthStore} from "../stores/authStore";
 
 function getHeaders() {
     const myHeaders = new Headers();
@@ -24,7 +24,6 @@ function request(method: string) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);
         }
-        console.log(url, requestOptions);
         return fetch(url, requestOptions).then(handleResponse);
     }
 }
@@ -34,10 +33,12 @@ function request(method: string) {
 function authHeader(url: string) {
     // return auth header with jwt if user is logged in and request is to the api url
     const { user } = useAuthStore();
-    const isLoggedIn = !!user?.token;
-    const isApiUrl = url.startsWith("api");
+    let boolean = !!user?.accessToken;
+    const isLoggedIn = boolean;
+    const isApiUrl = url.startsWith("/api");
     if (isLoggedIn && isApiUrl) {
-        return { Authorization: `Bearer ${user.token}` };
+        let authorizationToken = `Bearer ${user.accessToken}`;
+        return { Authorization: authorizationToken };
     } else {
         return {};
     }
@@ -45,7 +46,7 @@ function authHeader(url: string) {
 
 function handleResponse(response: Response) {
     return response.text().then(text => {
-        const data = text && JSON.parse(text);
+        const data = text
 
         if (!response.ok) {
             const { user, logout } = useAuthStore();
@@ -54,11 +55,11 @@ function handleResponse(response: Response) {
                 logout();
             }
 
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+            const error = (data) || response.statusText;
+            return Promise.resolve(error);
         }
 
-        return data;
+        return text && JSON.parse(text);
     });
 }
 

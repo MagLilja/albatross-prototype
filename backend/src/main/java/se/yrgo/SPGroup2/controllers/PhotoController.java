@@ -15,19 +15,4 @@ public class PhotoController {
     @Autowired
     private PhotoRepository photoRepository;
 
-    @GetMapping(value = "/{type}")
-    public List<Photo> getPhotosByType(@PathVariable String type) {
-        return photoRepository.findByType(ProductType.valueOf(type));
-    }
-
-    @GetMapping(value = "/{model}")
-    public List<Photo> getPhotosByModel(@PathVariable String model) {
-        return photoRepository.findByModel(model);
-    }
-
-    @GetMapping(value = "/{color}")
-    public List<Photo> getPhotosByColor(@PathVariable String color) {
-        return photoRepository.findByColor(color);
-    }
-
 }

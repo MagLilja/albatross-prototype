@@ -6,11 +6,15 @@ import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    public List<Product> findByType(ProductType type);
-    public Product findByArtNum(String artNum);
+     List<Product> findByType(ProductType type);
+     Optional<Product> findByArtNum(String artNum);
+
+     Optional<List<Product>> findByModel(String model);
+
 
 }

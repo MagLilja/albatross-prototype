@@ -1,9 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import home from "../views/home.vue";
 import admin from "../views/admin.vue";
-import {useAuthStore} from "../stores/auth.store";
 import LoginView from "../views/auth/LoginView.vue";
-
+import {useAuthStore} from "../stores/authStore";
 const router = createRouter({
     history: createWebHistory('/'),
     routes: [
@@ -18,6 +17,11 @@ const router = createRouter({
             component: () => import('../views/shop.vue'),
         },
         {
+            path: '/about',
+            name: 'about',
+            component: () => import('../views/about.vue'),
+        },
+        {
             path: '/login',
             name: 'login',
             component: LoginView,
@@ -26,6 +30,12 @@ const router = createRouter({
             path: '/categories',
             name: 'categories',
             component: () => import('../views/categories.vue'),
+        },
+        {
+            path: '/product/:artNr',
+            name: 'productPage',
+            component: () => import('../views/productView.vue'),
+            props: true,
         },
         {
             path: '/admin',
@@ -42,7 +52,7 @@ const router = createRouter({
                     name: 'show-products',
                     component: () => import('../views/admin/show-products.vue'),
                 },
-                ]
+            ]
 
         }
     ]

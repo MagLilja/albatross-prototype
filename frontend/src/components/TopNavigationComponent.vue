@@ -4,8 +4,8 @@ import {defineProps, ref, watchEffect} from 'vue'
 import CustomerMenu from "./menus/CustomerMenu.vue";
 import AdminMenu from "./menus/AdminMenu.vue";
 import {storeToRefs} from "pinia";
-import {useAuthStore} from "../stores/auth.store";
-import {useUsersStore} from "../stores/users.store";
+import {useAuthStore} from "../stores/authStore";
+import {useUsersStore} from "../stores/usersStore";
 
 const props = defineProps(['atTop'])
 const authStore = useAuthStore();
@@ -31,7 +31,7 @@ watchEffect(() => {
 
 <template>
     <div class="bg-[#4a4a4b] fixed top-0 left-0 w-full flex justify-between items-center px-12 z-40"
-         :class="{'bg-transparent':props.atTop}">
+         :class="{'bg-white/60':props.atTop}">
         <div>
             <router-link to="/"><img class="w-3/5 p-2 invert-1" :class="{'invert':props.atTop}"
                                      src="../assets/logo.webp" alt=""></router-link>

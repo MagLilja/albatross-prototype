@@ -7,14 +7,12 @@ import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.enums.ProductType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface PhotoRepository extends JpaRepository<Product, Long> {
+public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
-    public List<Photo> findByType(ProductType type);
+    public Optional<Photo> findByFilename(String filename);
 
-    public List<Photo> findByModel(String model);
-
-    public List<Photo> findByColor(String color);
 
 }

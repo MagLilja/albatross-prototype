@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {Ref, ref} from "vue";
-import {Product, ProductType} from "../interface/interfaces";
+import {ProductInterface, ProductType} from "../interface/interfaces";
 import ProductsComponent from "../components/ProductsComponent.vue";
 
 const route = useRoute()
@@ -15,7 +15,7 @@ const type = route.query.type as unknown as ProductType
 // })
 
 // create a ref to hold the list of products of the type
-const products: Ref<Product[]> = ref([])
+const products: Ref<ProductInterface[]> = ref([])
 
 
 
@@ -24,8 +24,7 @@ const products: Ref<Product[]> = ref([])
 
 <template>
     <div>
-        <div class="text-xs mb-4">Shop / {{ type }}</div>
-        <div class="text-4xl mb-14">{{ type }}</div>
+
 <ProductsComponent :category="type"></ProductsComponent>
 
     </div>
