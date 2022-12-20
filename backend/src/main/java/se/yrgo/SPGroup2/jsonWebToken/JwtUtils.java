@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 import se.yrgo.SPGroup2.domain.UserDetailsImpl;
 
+/**
+ * Utility class used to create and validate JSON Web Tokens.
+ */
 @Component
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -21,6 +24,11 @@ public class JwtUtils {
   @Value("${yrgo.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
+  /**
+   * This method is used to generate a JWT token for a user.
+   * @param authentication
+   * @return JWT token in the form of a String
+   */
   public String generateJwtToken(Authentication authentication) {
 
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -31,10 +39,21 @@ public class JwtUtils {
 
   }
 
+  /**
+   * This method is used to get the username from a JWT token.
+   * @param token
+   * @return username
+   */
   public String getUserNameFromJwtToken(String token) {
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
+  /**
+   * This method is used to validate a JWT token.
+   * Returns true if the token is valid, otherwise false.
+   * @param authToken
+   * @return boolean
+   */
   public boolean validateJwtToken(String authToken) {
     try {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

@@ -1,9 +1,11 @@
 package se.yrgo.SPGroup2.services;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 import se.yrgo.SPGroup2.domain.Photo;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
@@ -27,24 +29,39 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 
     @Override
-    public ResponseEntity<Product> createProduct(AddProductRequest productRequestPayload) throws ProductAlreadyExistsException, PhotoAlreadyExistsException {
-        Product newProduct = productRequestPayload.getProduct();
-        validateProduct(newProduct);
+    public Optional<Product> createProduct(AddProductRequest productRequestPayload) throws ProductAlreadyExistsException, PhotoAlreadyExistsException {
+        Product newProduct = getValidProductFromPayload(productRequestPayload);
         newProduct.setStock(new Stock(productRequestPayload.getAmountInStock(), newProduct));
 
         List<Photo> photoList = new ArrayList<>();
-
         List<String> photos = productRequestPayload.getPhotos();
-        for (String photo : photos) {
-            Optional<Photo> optionalPhoto = validatePhoto(photo);
-            Photo entity = optionalPhoto.get();
-            photoRepository.save(entity);
-            photoList.add(entity);
+        if (photos == null) {
+            photoList.add(new Photo("default.jpg"));
+        } else {
+            if (photos.size() > 0) {
+                for (String photo : photos) {
+                    Optional<Photo> optionalPhoto = validatePhoto(photo);
+                    Photo entity = optionalPhoto.get();
+                    photoRepository.save(entity);
+                    photoList.add(entity);
+                }
+            }
+            else {
+                photoList.add(new Photo("default.jpg"));
+            }
         }
 
         newProduct.setPhotoList(photoList);
         productRepository.save(newProduct);
-        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        return Optional.of(newProduct);
+    }
+
+    private Product getValidProductFromPayload(AddProductRequest productRequestPayload) {
+        if (productRequestPayload == null) {
+            throw new IllegalArgumentException("Payload cannot be null");
+        }
+
+        return productRequestPayload.getProduct();
     }
 
     private Optional<Photo> validatePhoto(String filename) throws PhotoAlreadyExistsException {

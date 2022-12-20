@@ -3,8 +3,10 @@ package se.yrgo.SPGroup2.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.web.util.HtmlUtils;
 import se.yrgo.SPGroup2.enums.ProductSize;
 import se.yrgo.SPGroup2.enums.ProductType;
+import se.yrgo.SPGroup2.validators.ProductValidator;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,11 +62,13 @@ public class Product {
     }
 
     public void setId(long id) {
+
         this.id = id;
     }
 
     public String getArtNum() {
-        return artNum;
+
+        return ProductValidator.validateStringInput(artNum);
     }
 
     public void setArtNum(String artNum) {
@@ -72,7 +76,7 @@ public class Product {
     }
 
     public ProductType getType() {
-        return type;
+       return type;
     }
 
     public void setType(ProductType type) {
@@ -80,7 +84,7 @@ public class Product {
     }
 
     public String getModel() {
-        return model;
+        return ProductValidator.validateStringInput(model);
     }
 
     public void setModel(String model) {
@@ -96,7 +100,7 @@ public class Product {
     }
 
     public String getColor() {
-        return color;
+        return ProductValidator.validateStringInput(color);
     }
 
     public void setColor(String color) {

@@ -30,14 +30,19 @@ public class AdminProductController {
     @PostMapping("")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createProduct(@RequestBody AddProductRequest productRequestPayload) {
-
+        ResponseEntity<?> response = new ResponseEntity<>("Product already exists", HttpStatus.BAD_REQUEST);
         try {
-            return productService.createProduct(productRequestPayload);
+            Optional<Product> product = productService.createProduct(productRequestPayload);
+            if (product.isPresent()) {
+                response = new ResponseEntity<>(product.get(), HttpStatus.CREATED);
+            }
         } catch (ProductAlreadyExistsException e) {
-            return new ResponseEntity<>("Product with Art Nr already exists", HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>("Product with Art Nr already exists", HttpStatus.BAD_REQUEST);
         } catch (PhotoAlreadyExistsException e) {
-            return new ResponseEntity<>("Photo with that filename already exists", HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>("Photo with that filename already exists", HttpStatus.BAD_REQUEST);
         }
+
+        return response;
 
 
     }
@@ -64,7 +69,7 @@ public class AdminProductController {
         }
         product.setStock(stock);
         productRepository.save(product);
-        return new ResponseEntity<>(product,HttpStatus.OK);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{artNr}")
