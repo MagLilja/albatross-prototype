@@ -6,10 +6,11 @@ public class ProductValidator {
 
     public static String validateStringInput(String strongToValidate) {
         String escape = HtmlUtils.htmlEscape(strongToValidate);
-        if (escape.equals(strongToValidate)) {
-            return escape;
-        } else {
-            throw new IllegalArgumentException("Input contains illegal characters");
-        }
+        return escape;
+//        if (escape.equals(strongToValidate)) {
+//            return escape;
+//        } else {
+//            throw new IllegalArgumentException("Input contains illegal characters");
+//        }
     }
 }
