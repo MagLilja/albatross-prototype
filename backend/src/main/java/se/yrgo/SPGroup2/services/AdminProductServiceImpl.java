@@ -1,11 +1,8 @@
 package se.yrgo.SPGroup2.services;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.HtmlUtils;
 import se.yrgo.SPGroup2.domain.Photo;
 import se.yrgo.SPGroup2.domain.Product;
 import se.yrgo.SPGroup2.domain.Stock;
@@ -13,7 +10,6 @@ import se.yrgo.SPGroup2.domain.payloads.AddProductRequest;
 import se.yrgo.SPGroup2.repositories.PhotoRepository;
 import se.yrgo.SPGroup2.repositories.ProductRepository;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
