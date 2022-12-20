@@ -26,13 +26,13 @@ onMounted(async () => {
         // fetch all products
         const loadedProducts = await ApiService.get("/api/products") as ProductInterface[];
         products.value = loadedProducts.filter(prod => {
-            return prod.size === ProductSize.M
+            return prod.size === ProductSize.XS
         })
     } else {
         // fetch products of the category
         const loadedProducts = await ApiService.get("/api/products/type?type=" + props.category.toString().toUpperCase()) as ProductInterface[];
         products.value = loadedProducts.filter(prod => {
-            return prod.size === ProductSize.M
+            return prod.size === ProductSize.XS
         })
     }
 })
