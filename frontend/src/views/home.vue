@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="bg-[#4a4a4b] w-full h-screen flex ">
-            <div class="bg-red-300 basis-1/2 relative"><img src="" alt="" srcset="../assets/bg-home.jpg" class="h-screen object-left object-top object-none"></div>
-            <div class="text-white basis-1/2 place-self-center p-12">
+            <div class="bg-[#4a4a4b] basis-1/2 relative"><img src="" alt="" srcset="../assets/bg-home.jpg" class="h-screen object-left object-top object-none"></div>
+            <div class="text-white basis-1/2 place-self-center ">
                 <div class="text-6xl">Albatross Sportswear</div>
                 <div class="text-2xl mt-4">Outdoor Clothing with style</div>
                 <button class="text-black my-6">Go to Shop
